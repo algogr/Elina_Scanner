@@ -1,0 +1,25 @@
+#ifndef APOGRAFI_H
+#define APOGRAFI_H
+
+#include <QtGui/QWidget>
+#include <QtNetwork>
+#include "ui_apografi.h"
+
+class apografi : public QWidget
+{
+    Q_OBJECT
+
+public:
+    apografi(QWidget *parent = 0,QTcpSocket *client=0);
+    ~apografi();
+
+private:
+    Ui::apografiClass ui;
+    int r;
+    QTcpSocket *client;
+
+private slots:
+	void scan();
+};
+
+#endif // APOGRAFI_H

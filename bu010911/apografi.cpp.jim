@@ -1,0 +1,61 @@
+#include "apografi.h"
+#include "stdio.h"
+#include <iostream>
+
+apografi::apografi(QWidget *parent,QTcpSocket *client)
+    : QWidget(parent)
+{
+	ui.setupUi(this);
+	this->client=client;
+	this->r=0;
+	connect (ui.lineScan,SIGNAL(returnPressed()),this,SLOT(scan()));
+
+}
+
+apografi::~apografi()
+{
+
+}
+
+void apografi::scan()
+{
+	QString scanned=ui.lineScan->text();
+	if (scanned.left(1)=="A"){
+		//printf("\a");
+	//	cout <<"\a";
+		ui.lineScan->setText("");
+		ui.lineScan->setFocus();
+	}
+
+	if (scanned.mid(12,1)=="Y"){
+		//cout <<"\a";
+		ui.lineScan->setText("");
+		ui.lineScan->setFocus();
+	}
+
+	if (scanned.mid(12,1)=="Z"){
+		//cout <<"\a";
+		ui.lineScan->setText("");
+		ui.lineScan->setFocus();
+	}
+	ui.tableWidget->setRowCount(r+1);
+	QTableWidgetItem *code=new QTableWidgetItem;
+	if (r>0)
+	code->setText(ui.tableWidget->item(r-1,0)->text());
+	ui.tableWidget->setItem(r,0,code);
+
+
+
+    for (int i=r-1;i>0;--i)
+    {
+
+    	ui.tableWidget->item(i,0)->setText(ui.tableWidget->item(i-1,0)->text());
+
+    }
+    ui.tableWidget->item(0,0)->setText(scanned);
+
+	//ui.tableWidget->setItem(0,0,code);
+	ui.lineScan->setText("");
+	ui.lineScan->setFocus();
+	++r;
+}
