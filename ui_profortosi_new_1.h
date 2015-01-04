@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'profortosi_new_1.ui'
 **
-** Created: Mon Jan 9 18:06:00 2012
-**      by: Qt User Interface Compiler version 4.6.3
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/

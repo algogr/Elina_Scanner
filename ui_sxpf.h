@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'sxpf.ui'
 **
-** Created: Fri Dec 16 13:50:47 2011
-**      by: Qt User Interface Compiler version 4.6.3
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/

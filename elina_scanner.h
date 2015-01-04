@@ -32,6 +32,8 @@
 #include "rewrap_sc.h"
 #include "return_roll.h"
 
+
+//#include <QNetworkConfigurationManager>
 class Elina_Scanner : public QDialog
 {
     Q_OBJECT
@@ -39,15 +41,20 @@ class Elina_Scanner : public QDialog
 public:
     Elina_Scanner(QWidget *parent = 0);
     ~Elina_Scanner();
-    QTcpSocket *client,*client1;
+    QTcpSocket *client1;
     bool read_ap,write_ap;
+
+    //static QNetworkConfigurationManager mgr;
+
 
 private:
     Ui::Elina_ScannerClass ui;
     void create_row(QString code_t,QString code_a);
     void send_final_packet();
     QMap <QString,QString> records;
-    QTimer *timer;
+    QNetworkConfigurationManager *mgr;
+
+    //QTimer *timer;
     //QBasicTimer *timer;
     //void timerEvent(QTimerEvent *event);
 
@@ -60,10 +67,11 @@ private slots:
 	void change_label_s();
 	void read_label_s();
     void rewrap_label();
-	void error();
-	void transmit_data();
+    void transmit_data();
 	void startread();
     void returnroll();
+    void check_online();
+    void check_state(QAbstractSocket::SocketState state);
 
 
 };

@@ -2,6 +2,8 @@
 #define APOGRAFI_COMMENT_H
 
 #include <QDialog>
+#include "apografi.h"
+class apografi;
 
 namespace Ui {
 class apografi_comment;
@@ -17,6 +19,10 @@ public:
 
 private:
     Ui::apografi_comment *ui;
+    apografi *p;
+
+public slots:
+    void btpressed();
 };
 
 #endif // APOGRAFI_COMMENT_H

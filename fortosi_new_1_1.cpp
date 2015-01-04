@@ -25,9 +25,9 @@ fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, QString ccode,
 		QString customer, QString car1, QString car2, QString prfid) :
 	QDialog(parent) {
 	//client = pclient;
-	QHostAddress addr((QString) SVR_HOST);
-	client = new QTcpSocket;
-	client->connectToHost(addr, 8889);
+    QHostAddress addr((QString) SVR_HOST);
+    client = new QTcpSocket;
+    client->connectToHost(addr, 8889);
 	nextblocksize = 0;
 	//client->setReadBufferSize((qint64)120000);
 	this->ccode = ccode;
@@ -64,12 +64,14 @@ fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, QString ccode,
 			SLOT(cellclicked(const QModelIndex &)));
 	connect(ui.pushCheck, SIGNAL(clicked()), this, SLOT(check()));
 	connect(ui.pushProf, SIGNAL(clicked()), this, SLOT(compare()));
-	connect(client, SIGNAL(readyRead()), this, SLOT(startread()));
+    connect(client, SIGNAL(readyRead()), this, SLOT(startread()));
+    delete icon;
 }
 
 fortosi_new_1_1::~fortosi_new_1_1() {
-	client->disconnectFromHost();
-
+    client->disconnectFromHost();
+    client->waitForDisconnected(1000);
+    //delete client;
 }
 
 void fortosi_new_1_1::scan() {
@@ -215,7 +217,7 @@ void fortosi_new_1_1::finalize() {
 	//client->disconnectFromHost();
 	//delete (client);
 	//delete (this);
-	disable_controls();
+    disable_controls();
 
 }
 
@@ -422,9 +424,9 @@ void fortosi_new_1_1::startread() {
 		}
 
 		if (type == "IFI") {
-			qDebug() << "PIRA IFI";
-			delete (this);
-		}
+            qDebug() << "PIRA IFI";
+            delete (this);
+        }
 
 		//qDebug() << req_type;
 		nextblocksize = 0;

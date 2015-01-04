@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'apografi.ui'
 **
-** Created: Wed Jul 20 17:14:07 2011
-**      by: Qt User Interface Compiler version 4.6.3
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,13 +37,13 @@ public:
         apografiClass->resize(320, 300);
         lineScan = new QLineEdit(apografiClass);
         lineScan->setObjectName(QString::fromUtf8("lineScan"));
-        lineScan->setGeometry(QRect(10, 30, 151, 23));
+        lineScan->setGeometry(QRect(10, 20, 151, 23));
         tableWidget = new QTableWidget(apografiClass);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 70, 301, 201));
+        tableWidget->setGeometry(QRect(10, 60, 301, 221));
         pushButton = new QPushButton(apografiClass);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(200, 30, 101, 27));
+        pushButton->setGeometry(QRect(200, 20, 101, 27));
         label = new QLabel(apografiClass);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(50, 150, 221, 31));

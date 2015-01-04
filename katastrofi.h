@@ -42,7 +42,7 @@ private:
 	QString lastscanned;
 
 	void create_row(QString code_t,QString code_a);
-	virtual bool eventFilter(QObject *object, QEvent *event);
+    virtual bool eventFilter(QEvent *event);
 	QString ver_code;
 	QStringList confirmed;
 

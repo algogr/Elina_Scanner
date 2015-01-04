@@ -44,7 +44,7 @@ private:
 private slots:
 	void startread();
 	void close();
-	void row_selected(int x,int y);
+    void row_selected(int x);
 
 };
 

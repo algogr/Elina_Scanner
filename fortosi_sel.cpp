@@ -26,7 +26,7 @@ fortosi_sel::fortosi_sel(QWidget *parent)
     QIcon *icon=new QIcon(ipath);
 
     this->setWindowIcon(*icon);
-
+    delete icon;
 
     client = new QTcpSocket;
 
@@ -39,6 +39,7 @@ fortosi_sel::fortosi_sel(QWidget *parent)
 
 fortosi_sel::~fortosi_sel()
 {
+    delete client;
 
 }
 

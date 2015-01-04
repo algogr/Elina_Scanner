@@ -42,6 +42,8 @@ fortosi_new_1_b::fortosi_new_1_b(QWidget *parent,QString ccode,QString customer,
 	connect(ui.pushCode, SIGNAL(clicked()), this, SLOT(code()));
 	connect(ui.pushLoop, SIGNAL(clicked()), this, SLOT(loop()));
 
+    delete icon;
+
 }
 
 fortosi_new_1_b::~fortosi_new_1_b()

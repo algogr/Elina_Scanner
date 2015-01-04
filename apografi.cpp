@@ -26,7 +26,7 @@ apografi::apografi(QWidget *parent, int mode) :
 	ui.setupUi(this);
 	QString ipath=(QString)APATH+"/img/app.png";
 	QIcon *icon=new QIcon(ipath);
-
+    comment="";
 	this->setWindowIcon(*icon);
 	ui.label->setVisible(FALSE);
 	QHostAddress addr((QString) SVR_HOST);
@@ -53,10 +53,11 @@ apografi::apografi(QWidget *parent, int mode) :
 	ui.pushButton->setFocusPolicy(Qt::NoFocus);
 	ui.tableWidget->setFocusPolicy(Qt::NoFocus);
 
+
 	connect(ui.lineScan, SIGNAL(returnPressed()), this, SLOT(scan()));
 	connect(ui.lineScan, SIGNAL(lostFocus()), this, SLOT(lock()));
 
-	connect(ui.pushButton, SIGNAL(released()), this, SLOT(insert_db()));
+    connect(ui.pushButton, SIGNAL(released()), this, SLOT(comments()));
 
 
 }
@@ -307,7 +308,7 @@ void apografi::insert_db() {
 
 		QString code_t = ui.tableWidget->item(i, 0)->text();
 		QString code_a = ui.tableWidget->item(i, 1)->text();
-        QString code=code_t+code_a+"\n";
+        QString code=code_t+code_a+comment+"\n";
 		//out << code_t << code_a;
         out<<code;
 		//if (code_t != "")
@@ -330,3 +331,8 @@ bool apografi::eventFilter(QObject *object, QEvent *event) {
 	return FALSE;
 }
 
+void apografi::comments()
+{
+    apografi_comment *w=new apografi_comment(this);
+    w->show();
+}

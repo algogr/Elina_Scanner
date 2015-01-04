@@ -145,7 +145,7 @@ void sxpf::close(){
 	delete(this);
 }
 
-void sxpf::row_selected(int x,int y){
+void sxpf::row_selected(int x){
 	this->selected_row=x;
 }
 

@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
 #include "elina_scanner.h"
-
+//#include "networkcontrol.h"
 
 Elina_Scanner::Elina_Scanner(QWidget *parent)
     : QDialog(parent)
@@ -38,86 +38,94 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
 
 	read_ap=FALSE;
 	write_ap=FALSE;
-	QString ipath=(QString)APATH+"/img/app.png";
-	QIcon *icon=new QIcon(ipath);
+    //QString ipath=(QString)APATH+"/img/app.png";
+    //QIcon *icon=new QIcon(ipath);
 
-	this->setWindowIcon(*icon);
-
+    //this->setWindowIcon(*icon);
+    //delete icon;
 	QString ipath1=(QString)APATH+"/img/truck1.png";
-	QIcon *icon1=new QIcon(ipath1);
-	ui.pushButton->setIcon(*icon1);
+    //QIcon *icon1=new QIcon(ipath1);
+    //ui.pushButton->setIcon(*icon1);
+    //delete icon1;
 
 	QString ipath2=(QString)APATH+"/img/prof.jpeg";
-	QIcon *icon2=new QIcon(ipath2);
-	ui.pushButton_7->setIcon(*icon2);
+    //QIcon *icon2=new QIcon(ipath2);
+    //ui.pushButton_7->setIcon(*icon2);
+    //delete icon2;
 
 	QString ipath3=(QString)APATH+"/img/apo.jpeg";
-	QIcon *icon3=new QIcon(ipath3);
-	ui.pushButton_2->setIcon(*icon3);
+    //QIcon *icon3=new QIcon(ipath3);
+    //ui.pushButton_2->setIcon(*icon3);
+    //delete icon3;
 
 	QString ipath4=(QString)APATH+"/img/kat.jpeg";
-	QIcon *icon4=new QIcon(ipath4);
-	ui.pushButton_6->setIcon(*icon4);
+    //QIcon *icon4=new QIcon(ipath4);
+    //ui.pushButton_6->setIcon(*icon4);
+    //delete icon4;
 
 	QString ipath5=(QString)APATH+"/img/change.png";
-	QIcon *icon5=new QIcon(ipath5);
-	ui.pushButton_4->setIcon(*icon5);
+    //QIcon *icon5=new QIcon(ipath5);
+    //ui.pushButton_4->setIcon(*icon5);
+    //delete icon5;
 
 	QString ipath6=(QString)APATH+"/img/read.png";
-	QIcon *icon6=new QIcon(ipath6);
-	ui.pushButton_5->setIcon(*icon6);
+    //QIcon *icon6=new QIcon(ipath6);
+    //ui.pushButton_5->setIcon(*icon6);
+    //delete icon6;
 
     QString ipath7=(QString)APATH+"/img/rewrap.png";
-    QIcon *icon7=new QIcon(ipath7);
-    ui.pushButton_8->setIcon(*icon7);
+    //QIcon *icon7=new QIcon(ipath7);
+    //ui.pushButton_8->setIcon(*icon7);
+    //delete icon7;
 
     QString ipath8=(QString)APATH+"/img/return.png";
-    QIcon *icon8=new QIcon(ipath8);
-    ui.pushButton_3->setIcon(*icon8);
+    //QIcon *icon8=new QIcon(ipath8);
+    //ui.pushButton_3->setIcon(*icon8);
+    //delete icon8;
 
-	QHostAddress addr((QString)SVR_HOST);
+    //QHostAddress addr((QString)SVR_HOST);
 	this->client1 = new QTcpSocket;
 	//client1 = new QTcpSocket;
-	QTimer *timer=new QTimer;
-	//QBasicTimer *timer=new QBasicTimer;
-	//connect(client,SIGNAL(connected()),this,SLOT(error()));
-	//	connect(client,SIGNAL(disconnected()),this,SLOT(error()));
-		//connect(client,SIGNAL(stateChanged ( QAbstractSocket::SocketState)),this,SLOT(error()));
-	//connect(client, SIGNAL(error(QAbstractSocket::SocketError)),this, SLOT(error()));
-	connect(timer, SIGNAL(timeout()),this, SLOT(transmit_data()));
-	connect(client1, SIGNAL(readyRead()),this, SLOT(startread()));
-	timer->start(30000);
-	//timer->start(1);
-	//timer->start(30000,this);
-	client1->connectToHost(addr, 8889);
-	//client1->connectToHost(addr, 8889);
+    //QTimer *timer=new QTimer;
+    ui.statusLabel->setText("OFFLINE");
+    ui.statusLabel->setStyleSheet("QLabel { color : red; }");
+
+    ui.statusLabel_2->setText("DISCONNECTED");
+    ui.statusLabel_2->setStyleSheet("QLabel { color : red; }");
 
 
-	//transmit_data();
+    mgr=new QNetworkConfigurationManager();
+    if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
+    {
+        ui.statusLabel->setText("ONLINE");
+        ui.statusLabel->setStyleSheet("QLabel { color : green; }");
+        QHostAddress addr((QString)SVR_HOST);
+        client1->connectToHost(addr, 8889);
+        connect(this->client1,SIGNAL(stateChanged(QAbstractSocket::SocketState)),this,SLOT(check_state(QAbstractSocket::SocketState)));
+        //client->waitForConnected(1000);
+    }
+    //connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
+    connect(client1, SIGNAL(readyRead()),this, SLOT(startread()));
+    connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
 
-//	create_row("LALALALALALALAL","LALALAKKAJKJAKJAKJKA");
 
+    //check_online();
 
-	//sleep(5);
-
-	//if (client->state()!=QAbstractSocket::ConnectedState)
-	//{
-		//exit(0);
-	//}
-	//QApplication::beep();
-
-	//connect(client, SIGNAL(error(QAbstractSocket::SocketError)),this, SLOT(error()));
 }
 
 Elina_Scanner::~Elina_Scanner()
 {
 	client1->disconnectFromHost();
+    delete client1;
+    delete mgr;
+    //delete
+
 
 }
 
 void Elina_Scanner::fortosi()
 {
-	fortosi_sel *w=new fortosi_sel(this);
+    fortosi_sel *w=new fortosi_sel(this);
 	w->show();
 	w->move(0,0);
 }
@@ -174,44 +182,6 @@ void Elina_Scanner::returnroll()
 }
 
 
-void Elina_Scanner::error()
-{
-	//QHostAddress addr((QString)SVR_HOST);
-	//forever
-	//{
-		//client->connectToHost(addr,8889);
-		//if(client)
-			//return;
-	//}
-	//qDebug()<<"LALAQLALA:"<<client->state();
-	//delete (this);
-	QMessageBox m;
-	m.setText(trUtf8("Δεν υπάρχει σύνδεση στο δίκτυο"));
-	m.setInformativeText(trUtf8("ΠΡΟΣΟΧΗ!!!"));
-	m.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-	QFont serifFont("Times", 18, QFont::Bold);
-	m.setFont(serifFont);
-	m.move(0,100);
-	int ret=m.exec();
-	switch (ret){
-
-	case QMessageBox::Cancel:
-		exit(0);
-		break;
-	case QMessageBox::Ok:
-		forever
-		{
-			bool test=client->isOpen();
-			qDebug()<< "TEST:" << test;
-			QHostAddress addr((QString)SVR_HOST);
-			client->connectToHost(addr, 8889);
-			if (test==TRUE)
-			break;
-		}
-	break;
-	}
-
-}
 
 void Elina_Scanner::transmit_data()
 {
@@ -219,7 +189,8 @@ void Elina_Scanner::transmit_data()
 	//this->client1 = new QTcpSocket;
 	//this->client1->connectToHost(addr, 8889);
 	//client1->reset();
-	//qDebug()<<"EDEEEEEEEEEEEEEE:"<<write_ap<<"ooooooo"<<read_ap;
+
+    qDebug()<<"EDEEEEEEEEEEEEEE:"<<write_ap<<"ooooooo"<<read_ap;
 	//if(this->write_ap==FALSE)
 //	{
 	//	if(this->read_ap==FALSE)
@@ -231,6 +202,9 @@ void Elina_Scanner::transmit_data()
 	if (file.size()!=0)
 	{
 	this->read_ap=TRUE;
+    //QHostAddress addr((QString)SVR_HOST);
+    //client1->connectToHost(addr, 8889);
+    //NA DV AN GINETAI ACCEPT to connection ti reply dinei
 	QTextStream in(&file);
 
 	//in.setVersion(QDataStream::Qt_4_1);
@@ -239,17 +213,19 @@ void Elina_Scanner::transmit_data()
     while (!line.isNull())
 	{
 
-		QString code_t,code_a;
+        QString code_t,code_a;
         code_t=line.left(15);
-        code_a=line.right(15);
+        code_a=line.mid(15,-1);
+
 		//in >> code_t >> code_a;
 		//qDebug()<<"ARXIKO"<<code_t;
 //		if (code_t=="\EOF") qDebug()<<"MITSIS";
 
 		//if (code_t!="")
 	//	{
-		this->create_row(code_t,code_a);
-		records.insert(code_t,code_a);
+        this->create_row(code_t,code_a);
+        records.insert(code_t,code_a);
+
 		//}
 		//else
 			//{
@@ -261,6 +237,7 @@ void Elina_Scanner::transmit_data()
 	}
 	send_final_packet();
 	//qDebug()<<"ARXIKO RECORDS"<<records;
+    //client1->disconnect();
 	}
 	file.close();
 	//timer->start(30000);
@@ -280,8 +257,8 @@ void Elina_Scanner::create_row(QString code_t,QString code_a)
 	QDataStream out(&block,QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_1);
 	QString req_type="APIN";
-	out << quint16(0)<<req_type<<code_t<<code_a;
-	qDebug()<<code_t<<code_a;
+    out << quint16(0)<<req_type<<code_t<<code_a;
+    qDebug()<<code_t<<code_a;
 	//qDebug()<<"Socket State"<<client->state();
 	out.device()->seek(0);
 	out<<quint16(block.size()-sizeof(quint16));
@@ -390,3 +367,68 @@ void Elina_Scanner::startread()
     // } else {
       //   QWidget::timerEvent(event);
      //}
+void Elina_Scanner::check_online()
+{
+
+
+
+
+
+
+
+
+    QList<QNetworkConfiguration> activeConfigs = mgr->allConfigurations(QNetworkConfiguration::Active);
+    QHostAddress addr((QString)SVR_HOST);
+    if (activeConfigs.count() > 0)
+    {
+        client1->connectToHost(addr, 8889);
+        qDebug()<<"ONLINE";
+        ui.statusLabel->setText("ONLINE");
+        ui.statusLabel->setStyleSheet("QLabel { color : green; }");
+        connect(this->client1,SIGNAL(stateChanged(QAbstractSocket::SocketState)),this,SLOT(check_state(QAbstractSocket::SocketState)));
+        //transmit_data();
+    }
+    else
+        {
+            client1->abort();
+            client1->close();
+            qDebug()<<"OFFLINE";
+            ui.statusLabel->setText("OFFLINE");
+            ui.statusLabel->setStyleSheet("QLabel { color : red; }");
+        }
+        //Q_ASSERT(!mgr.isOnline())
+
+}
+
+void Elina_Scanner::check_state(QAbstractSocket::SocketState state)
+{
+    //ui->label->setText((QString)state);
+    qDebug()<<state;
+    //ui->label_2->setText(state);
+
+    if (state==QAbstractSocket::ConnectedState)
+    {
+        //client->connectToHost(QHostAddress("192.168.0.249"), 8889);
+        //client->reset();
+        //client->waitForConnected(10000);
+        ui.statusLabel_2->setText("CONNECTED");
+        ui.statusLabel_2->setStyleSheet("QLabel { color : green; }");
+        transmit_data();
+
+    }
+    else if(state==QAbstractSocket::UnconnectedState)
+    {
+        ui.statusLabel_2->setText("DISCONNECTED");
+        ui.statusLabel_2->setStyleSheet("QLabel { color : red; }");
+        if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
+        {
+            QHostAddress addr((QString)SVR_HOST);
+            client1->connectToHost(addr, 8889);
+        }
+        //client->reset();
+        //client->waitForConnected(1000);
+    }
+}
+
+//QNetworkConfigurationManager *Elina_Scanner::mgr=new QNetworkConfigurationManager();
+//QNetworkConfigurationManager Elina_Scanner::mgr;

@@ -24,6 +24,7 @@
 #include <QtNetwork>
 #include "ui_apografi.h"
 #include "constants.h"
+#include "apografi_comment.h"
 
 class apografi : public QDialog
 {
@@ -32,7 +33,8 @@ class apografi : public QDialog
 public:
     apografi(QWidget *parent = 0,int mode=0);
     ~apografi();
-
+    QString comment;
+    void insert_db();
 private:
     Ui::apografiClass ui;
     int r;
@@ -51,8 +53,9 @@ private:
 
 private slots:
 	void scan();
-	void insert_db();
+
 	void lock();
+    void comments();
 
 
 

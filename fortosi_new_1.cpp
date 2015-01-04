@@ -17,6 +17,8 @@
     */
 #include "fortosi_new_1.h"
 #include <QHostAddress>
+#include "elina_scanner.h"
+
 
 fortosi_new_1::fortosi_new_1(QWidget *parent) :
 	QDialog(parent) {
@@ -24,13 +26,16 @@ fortosi_new_1::fortosi_new_1(QWidget *parent) :
 
 	ui.setupUi(this);
 
+    //qDebug()<<Elina_Scanner::get_mgr();
 	QString ipath1 = (QString) APATH + "/img/truck1.png";
 	QIcon *icon1 = new QIcon(ipath1);
 	this->setWindowIcon(*icon1);
+    delete icon1;
 
 	QString ipath = (QString) APATH + "/img/search.png";
 	QIcon *icon = new QIcon(ipath);
 	ui.searchButton->setIcon(*icon);
+    delete icon;
 
 	ui.searchButton->setEnabled(FALSE);
 	ui.label_ccode->setVisible(FALSE);
@@ -66,10 +71,12 @@ fortosi_new_1::fortosi_new_1(QWidget *parent) :
 	ui.lineEdit_3->setFocus();
 	this->prfid = "0";
 
+
 }
 
 fortosi_new_1::~fortosi_new_1() {
 	client->disconnectFromHost();
+    delete client;
 }
 
 void fortosi_new_1::startTransfer() {

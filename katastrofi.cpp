@@ -228,7 +228,7 @@ void katastrofi::lock() {
 	ui.lineScan->setFocus();
 }
 
-bool katastrofi::eventFilter(QObject *object, QEvent *event) {
+bool katastrofi::eventFilter(QEvent *event) {
 	if (event->type() == QEvent::FocusOut)
 		ui.lineScan->setFocus();
 	return FALSE;

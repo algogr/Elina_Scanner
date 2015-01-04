@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'katastrofi.h'
 **
-** Created: Tue Mar 12 18:50:29 2013
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
+** Created: Sat Jan 3 15:11:00 2015
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "katastrofi.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'katastrofi.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.7.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_katastrofi[] = {
 
  // content:
-       6,       // revision
+       5,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -44,29 +44,9 @@ static const char qt_meta_stringdata_katastrofi[] = {
     "close_now()\0"
 };
 
-void katastrofi::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        katastrofi *_t = static_cast<katastrofi *>(_o);
-        switch (_id) {
-        case 0: _t->scan(); break;
-        case 1: _t->insert_db(); break;
-        case 2: _t->lock(); break;
-        case 3: _t->close_now(); break;
-        default: ;
-        }
-    }
-    Q_UNUSED(_a);
-}
-
-const QMetaObjectExtraData katastrofi::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject katastrofi::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_katastrofi,
-      qt_meta_data_katastrofi, &staticMetaObjectExtraData }
+      qt_meta_data_katastrofi, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -92,8 +72,13 @@ int katastrofi::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
-            qt_static_metacall(this, _c, _id, _a);
+        switch (_id) {
+        case 0: scan(); break;
+        case 1: insert_db(); break;
+        case 2: lock(); break;
+        case 3: close_now(); break;
+        default: ;
+        }
         _id -= 4;
     }
     return _id;

@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'rewrap_sc.h'
 **
-** Created: Wed Mar 13 13:37:01 2013
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
+** Created: Sat Jan 3 15:11:19 2015
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "rewrap_sc.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'rewrap_sc.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.7.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_rewrap_sc[] = {
 
  // content:
-       6,       // revision
+       5,       // revision
        0,       // classname
        0,    0, // classinfo
        9,   14, // methods
@@ -52,34 +52,9 @@ static const char qt_meta_stringdata_rewrap_sc[] = {
     "startread()\0"
 };
 
-void rewrap_sc::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        rewrap_sc *_t = static_cast<rewrap_sc *>(_o);
-        switch (_id) {
-        case 0: _t->scanned_old(); break;
-        case 1: _t->scanned_new1(); break;
-        case 2: _t->scanned_new2(); break;
-        case 3: _t->scanned_new3(); break;
-        case 4: _t->scanned_new4(); break;
-        case 5: _t->scanned_new5(); break;
-        case 6: _t->insertClicked(); break;
-        case 7: _t->cancelClicked(); break;
-        case 8: _t->startread(); break;
-        default: ;
-        }
-    }
-    Q_UNUSED(_a);
-}
-
-const QMetaObjectExtraData rewrap_sc::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject rewrap_sc::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_rewrap_sc,
-      qt_meta_data_rewrap_sc, &staticMetaObjectExtraData }
+      qt_meta_data_rewrap_sc, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -105,8 +80,18 @@ int rewrap_sc::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
-            qt_static_metacall(this, _c, _id, _a);
+        switch (_id) {
+        case 0: scanned_old(); break;
+        case 1: scanned_new1(); break;
+        case 2: scanned_new2(); break;
+        case 3: scanned_new3(); break;
+        case 4: scanned_new4(); break;
+        case 5: scanned_new5(); break;
+        case 6: insertClicked(); break;
+        case 7: cancelClicked(); break;
+        case 8: startread(); break;
+        default: ;
+        }
         _id -= 9;
     }
     return _id;
