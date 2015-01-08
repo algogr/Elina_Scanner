@@ -56,7 +56,7 @@ private slots:
 
 	void lock();
     void comments();
-
+    void info();
 
 
 };

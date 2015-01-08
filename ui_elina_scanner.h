@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'elina_scanner.ui'
 **
-** Created: Sat Jan 3 15:10:29 2015
+** Created: Tue Jan 6 20:14:31 2015
 **      by: Qt User Interface Compiler version 4.7.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -16,6 +16,7 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
+#include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
@@ -34,6 +35,8 @@ public:
     QPushButton *pushButton_2;
     QLabel *statusLabel;
     QLabel *statusLabel_2;
+    QPushButton *pushButton_9;
+    QProgressBar *progressBar;
 
     void setupUi(QWidget *Elina_ScannerClass)
     {
@@ -66,10 +69,17 @@ public:
         pushButton_2->setGeometry(QRect(220, 10, 85, 71));
         statusLabel = new QLabel(Elina_ScannerClass);
         statusLabel->setObjectName(QString::fromUtf8("statusLabel"));
-        statusLabel->setGeometry(QRect(50, 250, 91, 16));
+        statusLabel->setGeometry(QRect(10, 250, 91, 20));
         statusLabel_2 = new QLabel(Elina_ScannerClass);
         statusLabel_2->setObjectName(QString::fromUtf8("statusLabel_2"));
-        statusLabel_2->setGeometry(QRect(190, 250, 111, 16));
+        statusLabel_2->setGeometry(QRect(220, 250, 91, 20));
+        pushButton_9 = new QPushButton(Elina_ScannerClass);
+        pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
+        pushButton_9->setGeometry(QRect(220, 180, 85, 61));
+        progressBar = new QProgressBar(Elina_ScannerClass);
+        progressBar->setObjectName(QString::fromUtf8("progressBar"));
+        progressBar->setGeometry(QRect(110, 250, 101, 23));
+        progressBar->setValue(0);
 
         retranslateUi(Elina_ScannerClass);
 
@@ -97,6 +107,8 @@ public:
         pushButton_2->setShortcut(QApplication::translate("Elina_ScannerClass", "3", 0, QApplication::UnicodeUTF8));
         statusLabel->setText(QString());
         statusLabel_2->setText(QString());
+        pushButton_9->setText(QApplication::translate("Elina_ScannerClass", "9.\316\221\317\200\316\277\317\203\317\204o\316\273\316\256", 0, QApplication::UnicodeUTF8));
+        pushButton_9->setShortcut(QApplication::translate("Elina_ScannerClass", "8", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -43,6 +43,7 @@ public:
     ~Elina_Scanner();
     QTcpSocket *client1;
     bool read_ap,write_ap;
+    bool networkstatus;
 
     //static QNetworkConfigurationManager mgr;
 
@@ -53,7 +54,8 @@ private:
     void send_final_packet();
     QMap <QString,QString> records;
     QNetworkConfigurationManager *mgr;
-
+    int ifino,apogrno;
+    QString macaddress;
     //QTimer *timer;
     //QBasicTimer *timer;
     //void timerEvent(QTimerEvent *event);

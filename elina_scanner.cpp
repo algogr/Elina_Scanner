@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
 #include "elina_scanner.h"
+#include <QProgressDialog>
 //#include "networkcontrol.h"
 
 Elina_Scanner::Elina_Scanner(QWidget *parent)
@@ -24,16 +25,25 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
 	ui.setupUi(this);
 	//this->showFullScreen();
 	QRegExp jim("\\A\\d{3,3}[X-Z]\\d{1,1}");
+    networkstatus=FALSE;
+    ifino=0;
+    connect(ui.pushButton, SIGNAL(released()), this, SLOT(fortosi()));
+    connect(ui.pushButton_7, SIGNAL(released()), this, SLOT(profortosi()));
+    connect(ui.pushButton_2, SIGNAL(released()), this, SLOT(apografi_s()));
+    connect(ui.pushButton_6, SIGNAL(released()), this, SLOT(katastrofi_s()));
+    connect(ui.pushButton_4, SIGNAL(released()), this, SLOT(change_label_s()));
+    connect(ui.pushButton_5, SIGNAL(released()), this, SLOT(read_label_s()));
+    connect(ui.pushButton_8, SIGNAL(released()),this,SLOT(rewrap_label()));
+    connect(ui.pushButton_3, SIGNAL(released()),this,SLOT(returnroll()));
+    connect(ui.pushButton_9,SIGNAL(released()),this,SLOT(transmit_data()));
 
+    foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
+        {
+            // Return only the first non-loopback MAC Address
+            if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+                macaddress=netInterface.hardwareAddress();
+        }
 
-	connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(fortosi()));
-	connect(ui.pushButton_7, SIGNAL(clicked()), this, SLOT(profortosi()));
-	connect(ui.pushButton_2, SIGNAL(clicked()), this, SLOT(apografi_s()));
-	connect(ui.pushButton_6, SIGNAL(clicked()), this, SLOT(katastrofi_s()));
-	connect(ui.pushButton_4, SIGNAL(clicked()), this, SLOT(change_label_s()));
-	connect(ui.pushButton_5, SIGNAL(clicked()), this, SLOT(read_label_s()));
-    connect(ui.pushButton_8, SIGNAL(clicked()),this,SLOT(rewrap_label()));
-    connect(ui.pushButton_3, SIGNAL(clicked()),this,SLOT(returnroll()));
 
 
 	read_ap=FALSE;
@@ -93,6 +103,9 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
     ui.statusLabel_2->setText("DISCONNECTED");
     ui.statusLabel_2->setStyleSheet("QLabel { color : red; }");
 
+    ui.progressBar->setVisible(false);
+    ui.progressBar->setMinimum(0);
+
 
     mgr=new QNetworkConfigurationManager();
     if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
@@ -107,6 +120,7 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
     //connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
     connect(client1, SIGNAL(readyRead()),this, SLOT(startread()));
     connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
+
 
 
     //check_online();
@@ -185,6 +199,25 @@ void Elina_Scanner::returnroll()
 
 void Elina_Scanner::transmit_data()
 {
+    QFile old_copy("apografi_1.txt");
+    old_copy.remove();
+    ifino=0;
+    QFile file1("apografi.txt");
+    file1.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file1);
+    QString line=in.readLine();
+    QVariant line_count=0;
+    int no=0;
+    while (!line.isNull())
+    {
+        line_count=++no;
+        line=in.readLine();
+    }
+    file1.close();
+    apogrno=line_count.toInt();
+    ui.progressBar->reset();
+    ui.progressBar->setMaximum(apogrno);
+    ui.progressBar->setVisible(true);
 	//QHostAddress addr((QString)SVR_HOST);
 	//this->client1 = new QTcpSocket;
 	//this->client1->connectToHost(addr, 8889);
@@ -197,7 +230,7 @@ void Elina_Scanner::transmit_data()
 		//{
 
 	QFile file("apografi.txt");
-
+    file.copy("apografi_1.txt");
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	if (file.size()!=0)
 	{
@@ -210,12 +243,13 @@ void Elina_Scanner::transmit_data()
 	//in.setVersion(QDataStream::Qt_4_1);
     QString line=in.readLine();
 	//while (in.restatus()!=QDataStream::ReadPastEnd)
+    int i=0;
     while (!line.isNull())
 	{
 
         QString code_t,code_a;
         code_t=line.left(15);
-        code_a=line.mid(15,-1);
+        code_a=line.mid(15,-1)+macaddress;
 
 		//in >> code_t >> code_a;
 		//qDebug()<<"ARXIKO"<<code_t;
@@ -332,10 +366,12 @@ void Elina_Scanner::startread()
 		QString code_rt;
 		in>>code_rt;
 		qDebug()<<"CODE_RT"<<code_rt;
+        ++ifino;
+        ui.progressBar->setValue(ifino);
 		records.remove(code_rt);
 		qDebug()<<"RECORDS:::::"<<records;
 
-		QFile file("apografi.txt");
+        QFile file("apografi.txt");
 		QMapIterator<QString, QString> i(records);
 		bool jim=file.remove();
 		qDebug()<<"JIM:"<<jim;
@@ -381,6 +417,7 @@ void Elina_Scanner::check_online()
     QHostAddress addr((QString)SVR_HOST);
     if (activeConfigs.count() > 0)
     {
+
         client1->connectToHost(addr, 8889);
         qDebug()<<"ONLINE";
         ui.statusLabel->setText("ONLINE");
@@ -395,6 +432,7 @@ void Elina_Scanner::check_online()
             qDebug()<<"OFFLINE";
             ui.statusLabel->setText("OFFLINE");
             ui.statusLabel->setStyleSheet("QLabel { color : red; }");
+            networkstatus=FALSE;
         }
         //Q_ASSERT(!mgr.isOnline())
 
@@ -411,13 +449,16 @@ void Elina_Scanner::check_state(QAbstractSocket::SocketState state)
         //client->connectToHost(QHostAddress("192.168.0.249"), 8889);
         //client->reset();
         //client->waitForConnected(10000);
+        networkstatus=TRUE;
         ui.statusLabel_2->setText("CONNECTED");
+
         ui.statusLabel_2->setStyleSheet("QLabel { color : green; }");
-        transmit_data();
+        //transmit_data();
 
     }
     else if(state==QAbstractSocket::UnconnectedState)
     {
+        networkstatus=FALSE;
         ui.statusLabel_2->setText("DISCONNECTED");
         ui.statusLabel_2->setStyleSheet("QLabel { color : red; }");
         if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)

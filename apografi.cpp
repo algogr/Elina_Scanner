@@ -51,6 +51,7 @@ apografi::apografi(QWidget *parent, int mode) :
 		ui.tableWidget->setColumnWidth(0, 200);
 	}
 	ui.pushButton->setFocusPolicy(Qt::NoFocus);
+    ui.pushButton_2->setFocusPolicy(Qt::NoFocus);
 	ui.tableWidget->setFocusPolicy(Qt::NoFocus);
 
 
@@ -58,6 +59,7 @@ apografi::apografi(QWidget *parent, int mode) :
 	connect(ui.lineScan, SIGNAL(lostFocus()), this, SLOT(lock()));
 
     connect(ui.pushButton, SIGNAL(released()), this, SLOT(comments()));
+    connect(ui.pushButton_2,SIGNAL(released()),this,SLOT(info()));
 
 
 }
@@ -335,4 +337,31 @@ void apografi::comments()
 {
     apografi_comment *w=new apografi_comment(this);
     w->show();
+}
+
+void apografi::info()
+{
+    QFile file("apografi.txt");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    QVariant line_count=0;
+    QString line=in.readLine();
+    int no=0;
+    while (!in.atEnd())
+    {
+        line_count=no++;
+        line=in.readLine();
+    }
+    file.close();
+    QVariant current_scan=ui.tableWidget->rowCount();
+    QMessageBox m;
+    m.setText(trUtf8("Κωδικοί στο αρχείο:")+line_count.toString());
+    m.setInformativeText(trUtf8("Τρέχουσα σάρωση:")+current_scan.toString());
+    m.setStandardButtons(QMessageBox::Ok);
+    m.move(0, 100);
+    QFont serifFont("Times", 18, QFont::Bold);
+    m.setFont(serifFont);
+
+    m.exec();
+
 }

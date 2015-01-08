@@ -25,7 +25,8 @@
 #include <QtNetwork>
 #include <QTcpSocket>
 #include "constants.h"
-
+#include "elina_scanner.h"
+class Elina_Scanner;
 class fortosi_sel : public QDialog
 {
     Q_OBJECT
@@ -33,7 +34,7 @@ class fortosi_sel : public QDialog
 public:
     fortosi_sel(QWidget *parent = 0);
     ~fortosi_sel();
-
+    Elina_Scanner *p;
 
 private:
     Ui::fortosi_selClass ui;

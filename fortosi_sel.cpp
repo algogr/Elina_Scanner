@@ -17,6 +17,7 @@
     */
 #include "fortosi_sel.h"
 
+
 fortosi_sel::fortosi_sel(QWidget *parent)
     : QDialog(parent)
 {
@@ -27,6 +28,9 @@ fortosi_sel::fortosi_sel(QWidget *parent)
 
     this->setWindowIcon(*icon);
     delete icon;
+    p=static_cast<Elina_Scanner*>(parent);
+
+
 
     client = new QTcpSocket;
 
@@ -57,6 +61,10 @@ void fortosi_sel::progress_fortosi(){
 
 void fortosi_sel::retransmit_fortosi()
 {
+    qDebug()<<"MPIKA1"<<p->networkstatus;
+    if (p->networkstatus==TRUE)
+    {
+        qDebug()<<"MPIKA2";
     ui.pushButton->setEnabled(FALSE);
     ui.pushButton_2->setEnabled(FALSE);
     ui.pushButton_3->setEnabled(FALSE);
@@ -139,6 +147,18 @@ void fortosi_sel::retransmit_fortosi()
         client->write(block1);
         file.close();
     }
+    }
+    else
+    {
+        qDebug()<<"MPIKA";
+        QMessageBox m;
+        m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
+        QSound::play("bell.wav");
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(80,120);
+        m.exec();
+
+    }
 
     //delete(client);
     return;
@@ -150,7 +170,6 @@ void fortosi_sel::ready_read()
 {
     qDebug() << "PIRA IFI";
     QMessageBox m;
-    QString mtext;
     m.setText(trUtf8("Η φόρτωση εστάλει επιτυχώς!"));
     QSound::play("bell.wav");
 
