@@ -65,6 +65,7 @@ fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, QString ccode,
 	connect(ui.pushCheck, SIGNAL(clicked()), this, SLOT(check()));
 	connect(ui.pushProf, SIGNAL(clicked()), this, SLOT(compare()));
     connect(client, SIGNAL(readyRead()), this, SLOT(startread()));
+    //connect(ui.lineEdit,SIGNAL(clicked()),this,SLOT(lineeditclicked()));
     delete icon;
 }
 
@@ -122,9 +123,11 @@ void fortosi_new_1_1::scan() {
 		QAbstractButton *rej = m.addButton(trUtf8("Aπόρριψη"),
 				QMessageBox::ActionRole);
 
-		m.move(0, 100);
+        m.move(0, 100);
 		QFont serifFont("Times", 18, QFont::Bold);
 		m.setFont(serifFont);
+        acc->setFocusPolicy(Qt::NoFocus);
+        rej->setFocusPolicy(Qt::NoFocus);
 
 		m.exec();
 		if (m.clickedButton() == rej) {
@@ -132,7 +135,7 @@ void fortosi_new_1_1::scan() {
 			ui.lineEdit->setFocus();
 			return;
 		}
-		goto norm;
+        goto norm;
 	}
 	norm: weight += scanned.left(3).toInt();
 	QVariant sweight = weight;
@@ -166,6 +169,12 @@ void fortosi_new_1_1::back() {
 void fortosi_new_1_1::finalize() {
 
     QFile file ("fortosi.txt");
+    QFile file3("fortosi_3.txt");
+    QFile file2("fortosi_2.txt");
+    file3.remove();
+    file2.copy("fortosi_3.txt");
+    file2.remove();
+    file.copy("fortosi_2.txt");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream fout(&file);
     fout<<"1\n";
@@ -223,6 +232,12 @@ void fortosi_new_1_1::finalize() {
 
 void fortosi_new_1_1::temporary() {
     QFile file ("fortosi.txt");
+    QFile file3("fortosi_3.txt");
+    QFile file2("fortosi_2.txt");
+    file3.remove();
+    file2.copy("fortosi_3.txt");
+    file2.remove();
+    file.copy("fortosi_2.txt");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream fout(&file);
     fout<<"1\n";
@@ -265,6 +280,11 @@ void fortosi_new_1_1::temporary() {
 
 void fortosi_new_1_1::cellclicked(const QModelIndex &) {
 	ui.pushdelrow->setEnabled(TRUE);
+}
+
+void fortosi_new_1_1::lineeditclicked()
+{
+    qDebug("EDIT:::!!!");
 }
 
 void fortosi_new_1_1::delrow() {

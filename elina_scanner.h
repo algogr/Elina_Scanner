@@ -59,6 +59,8 @@ private:
     //QTimer *timer;
     //QBasicTimer *timer;
     //void timerEvent(QTimerEvent *event);
+    void transmit_apografi();
+    QNetworkReply* reply;
 
 
 private slots:
@@ -74,6 +76,8 @@ private slots:
     void returnroll();
     void check_online();
     void check_state(QAbstractSocket::SocketState state);
+    void send();
+    void replyFinished(QNetworkReply* reply);
 
 
 };

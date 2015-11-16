@@ -35,6 +35,7 @@ public:
     fortosi_sel(QWidget *parent = 0);
     ~fortosi_sel();
     Elina_Scanner *p;
+    void send_fortosi(int n);
 
 private:
     Ui::fortosi_selClass ui;

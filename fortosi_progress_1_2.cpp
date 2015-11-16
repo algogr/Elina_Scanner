@@ -273,15 +273,16 @@ void fortosi_progress_1_2::scan() {
 		QSound::play("bell.wav");
 		m.setText(trUtf8("O K/T δεν έχει προδιαγραφή 3Α"));
 		m.setInformativeText(trUtf8("ΠΡΟΣΟΧΗ!!!"));
-		QAbstractButton *acc = m.addButton(trUtf8("Aποδοχή"),
+        QPushButton *acc = m.addButton(trUtf8("Aποδοχή"),
 				QMessageBox::ActionRole);
-		QAbstractButton *rej = m.addButton(trUtf8("Aπόρριψη"),
+        QPushButton *rej = m.addButton(trUtf8("Aπόρριψη"),
 				QMessageBox::ActionRole);
 
 		m.move(0, 100);
 		QFont serifFont("Times", 18, QFont::Bold);
 		m.setFont(serifFont);
-
+        acc->setFocusPolicy(Qt::NoFocus);
+        rej->setFocusPolicy(Qt::NoFocus);
 		m.exec();
 		if (m.clickedButton() == rej) {
 			ui.lineScan->setText("");
@@ -318,9 +319,15 @@ void fortosi_progress_1_2::scan() {
 
 void fortosi_progress_1_2::finalize() {
 	QHostAddress addr((QString) SVR_HOST);
-
+    QFile file3("fortosi_3.txt");
+    QFile file2("fortosi_2.txt");
+    file3.remove();
+    file2.copy("fortosi_3.txt");
+    file2.remove();
 	qDebug() << "R=" << r;
     QFile file ("fortosi.txt");
+    file.copy("fortosi_2.txt");
+
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream fout(&file);
     fout<<"2\n";
@@ -362,6 +369,12 @@ void fortosi_progress_1_2::finalize() {
 void fortosi_progress_1_2::temporary() {
 	QHostAddress addr((QString) SVR_HOST);
     QFile file ("fortosi.txt");
+    QFile file3("fortosi_3.txt");
+    QFile file2("fortosi_2.txt");
+    file3.remove();
+    file2.copy("fortosi_3.txt");
+    file2.remove();
+    file.copy("fortosi_2.txt");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream fout(&file);
     fout<<"2\n";

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'fortosi_new_1_1.h'
 **
-** Created: Thu Jan 8 13:00:02 2015
+** Created: Fri Aug 28 21:28:56 2015
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_fortosi_new_1_1[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -40,6 +40,7 @@ static const uint qt_meta_data_fortosi_new_1_1[] = {
       88,   16,   16,   16, 0x08,
       96,   16,   16,   16, 0x08,
      106,   16,   16,   16, 0x08,
+     118,   16,   16,   16, 0x08,
 
        0        // eod
 };
@@ -48,6 +49,7 @@ static const char qt_meta_stringdata_fortosi_new_1_1[] = {
     "fortosi_new_1_1\0\0scan()\0finalize()\0"
     "temporary()\0back()\0cellclicked(QModelIndex)\0"
     "delrow()\0check()\0compare()\0startread()\0"
+    "lineeditclicked()\0"
 };
 
 const QMetaObject fortosi_new_1_1::staticMetaObject = {
@@ -88,9 +90,10 @@ int fortosi_new_1_1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 6: check(); break;
         case 7: compare(); break;
         case 8: startread(); break;
+        case 9: lineeditclicked(); break;
         default: ;
         }
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

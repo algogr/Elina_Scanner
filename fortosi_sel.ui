@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>3.Αποστολή Τελευταίας Φόρτωσης</string>
+    <string>3.Επαναποστολή φόρτωσης</string>
    </property>
    <property name="shortcut">
     <string>3</string>

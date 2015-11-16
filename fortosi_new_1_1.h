@@ -63,6 +63,7 @@ private slots:
 	void check();
 	void compare();
 	void startread();
+    void lineeditclicked();
 };
 
 #endif // FORTOSI_NEW_1_1_H

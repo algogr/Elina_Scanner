@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'elina_scanner.h'
 **
-** Created: Thu Jan 8 13:00:05 2015
+** Created: Sat Aug 29 15:11:35 2015
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Elina_Scanner[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -43,6 +43,8 @@ static const uint qt_meta_data_Elina_Scanner[] = {
      141,   14,   14,   14, 0x08,
      154,   14,   14,   14, 0x08,
      175,  169,   14,   14, 0x08,
+     217,   14,   14,   14, 0x08,
+     230,  224,   14,   14, 0x08,
 
        0        // eod
 };
@@ -54,6 +56,7 @@ static const char qt_meta_stringdata_Elina_Scanner[] = {
     "rewrap_label()\0transmit_data()\0"
     "startread()\0returnroll()\0check_online()\0"
     "state\0check_state(QAbstractSocket::SocketState)\0"
+    "send()\0reply\0replyFinished(QNetworkReply*)\0"
 };
 
 const QMetaObject Elina_Scanner::staticMetaObject = {
@@ -97,9 +100,11 @@ int Elina_Scanner::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 9: returnroll(); break;
         case 10: check_online(); break;
         case 11: check_state((*reinterpret_cast< QAbstractSocket::SocketState(*)>(_a[1]))); break;
+        case 12: send(); break;
+        case 13: replyFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }

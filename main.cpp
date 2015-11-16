@@ -19,8 +19,9 @@
 
 #include <QtGui>
 #include <QApplication>
+#include <QtPlugin>
 
-
+//Q_IMPORT_PLUGIN(qgenericbearer)
 
 int main(int argc, char *argv[])
 {

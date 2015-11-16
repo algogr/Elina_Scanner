@@ -23,7 +23,7 @@
 apografi::apografi(QWidget *parent, int mode) :
 	QDialog(parent) {
 
-	ui.setupUi(this);
+    ui.setupUi(this);
 	QString ipath=(QString)APATH+"/img/app.png";
 	QIcon *icon=new QIcon(ipath);
     comment="";

@@ -31,7 +31,8 @@ HEADERS += read_label.h \
     elina_scanner.h \
     rewrap_sc.h \
     return_roll.h \
-    apografi_comment.h
+    apografi_comment.h \
+    fortosi_sel_1.h
 SOURCES += read_label.cpp \
     change_label.cpp \
     sxpf.cpp \
@@ -59,7 +60,8 @@ SOURCES += read_label.cpp \
     elina_scanner.cpp \
     rewrap_sc.cpp \
     return_roll.cpp \
-    apografi_comment.cpp
+    apografi_comment.cpp \
+    fortosi_sel_1.cpp
 FORMS += read_label.ui \
     change_label.ui \
     sxpf.ui \
@@ -85,5 +87,6 @@ FORMS += read_label.ui \
     elina_scanner.ui \
     rewrap_sc.ui \
     return_roll.ui \
-    apografi_comment.ui
-RESOURCES += 
+    apografi_comment.ui \
+    fortosi_sel_1.ui
+RESOURCES +=

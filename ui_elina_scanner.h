@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'elina_scanner.ui'
 **
-** Created: Tue Jan 6 20:14:31 2015
+** Created: Thu Jan 8 15:28:02 2015
 **      by: Qt User Interface Compiler version 4.7.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

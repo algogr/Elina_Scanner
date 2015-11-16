@@ -35,7 +35,7 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
     connect(ui.pushButton_5, SIGNAL(released()), this, SLOT(read_label_s()));
     connect(ui.pushButton_8, SIGNAL(released()),this,SLOT(rewrap_label()));
     connect(ui.pushButton_3, SIGNAL(released()),this,SLOT(returnroll()));
-    connect(ui.pushButton_9,SIGNAL(released()),this,SLOT(transmit_data()));
+    connect(ui.pushButton_9,SIGNAL(released()),this,SLOT(send()));
 
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
         {
@@ -108,6 +108,9 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
 
 
     mgr=new QNetworkConfigurationManager();
+    QVariant t=mgr->allConfigurations().count();
+    qDebug()<<t;
+    ui.statusLabel->setText(t.toString());
     if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
     {
         ui.statusLabel->setText("ONLINE");
@@ -119,6 +122,7 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
     }
     //connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
     connect(client1, SIGNAL(readyRead()),this, SLOT(startread()));
+    connect(client1,SIGNAL(bytesWritten(qint64)),this,SLOT(written()));
     connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
 
 
@@ -196,6 +200,61 @@ void Elina_Scanner::returnroll()
 }
 
 
+void Elina_Scanner::transmit_apografi()
+{
+    QFile old_copy("apografi_1.txt");
+    old_copy.remove();
+    ifino=0;
+    QFile file("apografi.txt");
+    file.copy("apografi_1.txt");
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+        {
+            // Return only the first non-loopback MAC Address
+            if (!(interface.flags() & QNetworkInterface::IsLoopBack))
+
+            {
+            QString text = interface.hardwareAddress();
+            qDebug() << text;
+            }
+        }
+
+
+    //////
+    ///
+    ///
+    ///
+
+    QNetworkRequest request(QUrl("http://"+(QString)SVR_HOST+"/upload/")); //our server with php-script
+
+    QString bound="margin"; //name of the boundary
+    //according to rfc 1867 we need to put this string here:
+    QByteArray data(QString("--" + bound + "\r\n").toLocal8Bit());
+    data.append("Content-Disposition: form-data; name=\"action\"\r\n\r\n");
+    //data.append("testuploads.php\r\n");   //our script's name, as I understood. Please, correct me if I'm wrong
+    data.append("--" + bound + "\r\n");   //according to rfc 1867
+    //QFile file(path);
+
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            qDebug()<<"NO FILE";
+            return;
+        }
+    QString filename=file.fileName();
+    //QString filename="algo.db";
+    data.append("Content-Disposition: form-data; name=\"upload\"; filename=\""+filename+"\"\r\n");  //name of the input is "uploaded" in my form, next one is a file name.
+    ///data.append("Content-Type: image/jpeg\r\n\r\n"); //data type
+    //data.append("Content-Type: application/binary\r\n\r\n"); //data type
+    data.append("Content-Type: text/plain\r\n\r\n"); //data type
+    data.append(file.readAll());   //let's read the file
+    data.append("\r\n");
+    data.append("--" + bound + "--\r\n");  //closing boundary according to rfc 1867
+    request.setRawHeader(QString("Content-Type").toLocal8Bit(),QString("multipart/form-data; boundary=" + bound).toLocal8Bit());
+    request.setRawHeader(QString("Content-Length").toLocal8Bit(), QString::number(data.length()).toLocal8Bit());
+    reply = manager->post(request,data);
+
+}
 
 void Elina_Scanner::transmit_data()
 {
@@ -267,6 +326,7 @@ void Elina_Scanner::transmit_data()
 				//qDebug()<<"jimt:"<<code_t<<"jima:"<<code_a;
 			//}
 			//break;
+
 		line=in.readLine();
 	}
 	send_final_packet();
@@ -299,7 +359,7 @@ void Elina_Scanner::create_row(QString code_t,QString code_a)
 	//qDebug()<<"BLOCKSIZE:"<<client;
 
 	client1->write(block);
-
+    //client1->waitForBytesWritten(1000);
 	return;
 
 
@@ -461,6 +521,8 @@ void Elina_Scanner::check_state(QAbstractSocket::SocketState state)
         networkstatus=FALSE;
         ui.statusLabel_2->setText("DISCONNECTED");
         ui.statusLabel_2->setStyleSheet("QLabel { color : red; }");
+        client1->abort();
+        client1->reset();
         if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
         {
             QHostAddress addr((QString)SVR_HOST);
@@ -473,3 +535,61 @@ void Elina_Scanner::check_state(QAbstractSocket::SocketState state)
 
 //QNetworkConfigurationManager *Elina_Scanner::mgr=new QNetworkConfigurationManager();
 //QNetworkConfigurationManager Elina_Scanner::mgr;
+
+void Elina_Scanner::send()
+{
+    if((mgr->allConfigurations(QNetworkConfiguration::Active).count()>0) && (networkstatus==TRUE))
+        //transmit_data();
+        transmit_apografi();
+    else
+    {
+        QMessageBox m;
+        m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
+        QSound::play("bell.wav");
+        m.setStandardButtons(QMessageBox::Ok);
+        m.setInformativeText(trUtf8("Η αποστολή δεν έγινε!"));
+        m.move(30,120);
+        m.exec();
+    }
+}
+
+void Elina_Scanner::replyFinished(QNetworkReply *reply)
+{
+    qDebug()<<"FINISHED";
+    reply->deleteLater();
+    QMessageBox m;
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        QFile file("apografi.txt");
+        file.remove();
+        QByteArray block;
+        QDataStream out(&block,QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_4_1);
+        QString req_type="APIN_NEW";
+        out << quint16(0)<<req_type;
+    //qDebug()<<code_t<<code_a;
+
+        out.device()->seek(0);
+        out<<quint16(block.size()-sizeof(quint16));
+        client1->write(block);
+        send_final_packet();
+        m.setText(trUtf8("Aποστολή απογραφής"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.setInformativeText(trUtf8("Η αποστολή ολοκληρώθηκε επιτυχώς!"));
+        m.move(30,120);
+        m.exec();
+    }
+    else
+    {
+        m.setText(trUtf8("Πρόβλημα αποστολής"));
+        QSound::play("bell.wav");
+        m.setStandardButtons(QMessageBox::Ok);
+        m.setInformativeText(trUtf8("Η αποστολή AΠΕΤΥΧΕ!!!"));
+        m.move(30,120);
+        m.exec();
+
+    }
+
+    return;
+}
+

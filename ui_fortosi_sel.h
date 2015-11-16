@@ -1,7 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fortosi_sel.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created: Sat Aug 29 15:07:28 2015
+**      by: Qt User Interface Compiler version 4.7.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -51,7 +52,7 @@ public:
     void retranslateUi(QWidget *fortosi_selClass)
     {
         fortosi_selClass->setWindowTitle(QApplication::translate("fortosi_selClass", "\316\246\317\214\317\201\317\204\317\211\317\203\316\267", 0, QApplication::UnicodeUTF8));
-        pushButton_3->setText(QApplication::translate("fortosi_selClass", "3.\316\221\317\200\316\277\317\203\317\204\316\277\316\273\316\256 \316\244\316\265\316\273\316\265\317\205\317\204\316\261\316\257\316\261\317\202 \316\246\317\214\317\201\317\204\317\211\317\203\316\267\317\202", 0, QApplication::UnicodeUTF8));
+        pushButton_3->setText(QApplication::translate("fortosi_selClass", "3.\316\225\317\200\316\261\316\275\316\261\317\200\316\277\317\203\317\204\316\277\316\273\316\256 \317\206\317\214\317\201\317\204\317\211\317\203\316\267\317\202", 0, QApplication::UnicodeUTF8));
         pushButton_3->setShortcut(QApplication::translate("fortosi_selClass", "3", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("fortosi_selClass", "1.\316\235\316\255\316\261 \316\246\317\214\317\201\317\204\317\211\317\203\316\267", 0, QApplication::UnicodeUTF8));
         pushButton->setShortcut(QApplication::translate("fortosi_selClass", "1", 0, QApplication::UnicodeUTF8));
