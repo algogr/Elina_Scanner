@@ -1,8 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'apografi.h'
 **
-** Created: Fri Aug 28 21:28:42 2015
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
+** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.7)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +9,8 @@
 #include "apografi.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'apografi.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.3. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.7. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +19,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_apografi[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -44,9 +43,29 @@ static const char qt_meta_stringdata_apografi[] = {
     "info()\0"
 };
 
+void apografi::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        apografi *_t = static_cast<apografi *>(_o);
+        switch (_id) {
+        case 0: _t->scan(); break;
+        case 1: _t->lock(); break;
+        case 2: _t->comments(); break;
+        case 3: _t->info(); break;
+        default: ;
+        }
+    }
+    Q_UNUSED(_a);
+}
+
+const QMetaObjectExtraData apografi::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject apografi::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_apografi,
-      qt_meta_data_apografi, 0 }
+      qt_meta_data_apografi, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -72,13 +91,8 @@ int apografi::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: scan(); break;
-        case 1: lock(); break;
-        case 2: comments(); break;
-        case 3: info(); break;
-        default: ;
-        }
+        if (_id < 4)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 4;
     }
     return _id;

@@ -43,7 +43,12 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
             if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
                 macaddress=netInterface.hardwareAddress();
         }
-
+   QString logline="";
+   QFile log("log.txt");
+   log.open(QIODevice::ReadWrite | QIODevice::Text);
+   QTextStream logoutput(&log);
+   logline="MAC:"+macaddress;
+   logoutput<<logline<<endl;
 
 
 	read_ap=FALSE;
@@ -98,6 +103,9 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
 	//client1 = new QTcpSocket;
     //QTimer *timer=new QTimer;
     ui.statusLabel->setText("OFFLINE");
+    logline="STATUS:"+ui.statusLabel->text();
+    logoutput<<logline<<endl;
+
     ui.statusLabel->setStyleSheet("QLabel { color : red; }");
 
     ui.statusLabel_2->setText("DISCONNECTED");
@@ -107,19 +115,29 @@ Elina_Scanner::Elina_Scanner(QWidget *parent)
     ui.progressBar->setMinimum(0);
 
 
+
     mgr=new QNetworkConfigurationManager();
     QVariant t=mgr->allConfigurations().count();
+    logline="ACTIVE INTERFACES:"+t.toString();
+    logoutput<<logline<<endl;
+
     qDebug()<<t;
     ui.statusLabel->setText(t.toString());
     if (mgr->allConfigurations(QNetworkConfiguration::Active).count()>0)
     {
+        logline="ACTIVENETWORK";
+        logoutput<<logline<<endl;
+
         ui.statusLabel->setText("ONLINE");
         ui.statusLabel->setStyleSheet("QLabel { color : green; }");
         QHostAddress addr((QString)SVR_HOST);
+
         client1->connectToHost(addr, 8889);
         connect(this->client1,SIGNAL(stateChanged(QAbstractSocket::SocketState)),this,SLOT(check_state(QAbstractSocket::SocketState)));
         //client->waitForConnected(1000);
     }
+
+    log.close();
     //connect(mgr,SIGNAL(onlineStateChanged(bool)),this,SLOT(check_online()));
     connect(client1, SIGNAL(readyRead()),this, SLOT(startread()));
     connect(client1,SIGNAL(bytesWritten(qint64)),this,SLOT(written()));
@@ -203,9 +221,23 @@ void Elina_Scanner::returnroll()
 void Elina_Scanner::transmit_apografi()
 {
     QFile old_copy("apografi_1.txt");
-    old_copy.remove();
+
     ifino=0;
     QFile file("apografi.txt");
+    if (!file.exists())
+    {
+        QMessageBox m;
+        m.setText(trUtf8("Δεν βρέθηκε το αρχείο απογραφής!(apografi.txt)"));
+        QSound::play("bell.wav");
+        m.setStandardButtons(QMessageBox::Ok);
+        m.setInformativeText(trUtf8("Η αποστολή δεν έγινε!"));
+        m.move(20,120);
+        m.exec();
+
+        return;
+    }
+    ui.pushButton_9->setEnabled(FALSE);
+    old_copy.remove();
     file.copy("apografi_1.txt");
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
@@ -547,7 +579,7 @@ void Elina_Scanner::send()
         m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
         QSound::play("bell.wav");
         m.setStandardButtons(QMessageBox::Ok);
-        m.setInformativeText(trUtf8("Η αποστολή δεν έγινε!"));
+        m.setInformativeText(trUtf8("Η αποστολή δεν έγινε! Ελέγξτε τον http server"));
         m.move(30,120);
         m.exec();
     }
@@ -577,6 +609,7 @@ void Elina_Scanner::replyFinished(QNetworkReply *reply)
         m.setStandardButtons(QMessageBox::Ok);
         m.setInformativeText(trUtf8("Η αποστολή ολοκληρώθηκε επιτυχώς!"));
         m.move(30,120);
+        ui.pushButton_9->setEnabled(TRUE);
         m.exec();
     }
     else
@@ -584,8 +617,9 @@ void Elina_Scanner::replyFinished(QNetworkReply *reply)
         m.setText(trUtf8("Πρόβλημα αποστολής"));
         QSound::play("bell.wav");
         m.setStandardButtons(QMessageBox::Ok);
-        m.setInformativeText(trUtf8("Η αποστολή AΠΕΤΥΧΕ!!!"));
+        m.setInformativeText(trUtf8("Η αποστολή AΠΕΤΥΧΕ!!!Ελέγξτε τον http server"));
         m.move(30,120);
+        ui.pushButton_9->setEnabled(TRUE);
         m.exec();
 
     }

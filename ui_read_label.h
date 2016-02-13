@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'read_label.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created by: Qt User Interface Compiler version 4.8.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -52,13 +52,13 @@ public:
         labelcode->setObjectName(QString::fromUtf8("labelcode"));
         labelcode->setGeometry(QRect(200, 10, 111, 21));
         QFont font;
-        font.setPointSize(11);
+        font.setPointSize(9);
         labelcode->setFont(font);
         labelper = new QLabel(read_labelClass);
         labelper->setObjectName(QString::fromUtf8("labelper"));
         labelper->setGeometry(QRect(10, 50, 301, 21));
         QFont font1;
-        font1.setPointSize(12);
+        font1.setPointSize(11);
         labelper->setFont(font1);
         labelxrisi = new QLabel(read_labelClass);
         labelxrisi->setObjectName(QString::fromUtf8("labelxrisi"));
@@ -86,11 +86,11 @@ public:
         labelcd->setFont(font1);
         label = new QLabel(read_labelClass);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 100, 71, 31));
+        label->setGeometry(QRect(10, 100, 91, 31));
         label->setFont(font1);
         label_2 = new QLabel(read_labelClass);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(10, 140, 81, 31));
+        label_2->setGeometry(QRect(10, 140, 91, 31));
         label_2->setFont(font1);
         label_3 = new QLabel(read_labelClass);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -105,7 +105,7 @@ public:
         pushButton->setGeometry(QRect(160, 10, 31, 27));
         pushButton_2 = new QPushButton(read_labelClass);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(260, 230, 51, 51));
+        pushButton_2->setGeometry(QRect(260, 210, 51, 51));
 
         retranslateUi(read_labelClass);
 

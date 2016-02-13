@@ -22,9 +22,15 @@ private:
     Ui::rewrap_sc *ui;
     QTcpSocket *client,*client1;
     quint16 nextblocksize;
-    void insert_production(QString old_code, QStringList new_codes);
+    void insert_production(QStringList old_codes, QStringList new_codes);
 
 private slots:
+    void scanned_oldA();
+    void scanned_new1A();
+    void scanned_new2A();
+    void scanned_new3A();
+    void scanned_new4A();
+    void scanned_new5A();
     void scanned_old();
     void scanned_new1();
     void scanned_new2();

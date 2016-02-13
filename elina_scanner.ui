@@ -16,17 +16,17 @@
   <widget class="QPushButton" name="pushButton_8">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>180</y>
+     <x>220</x>
+     <y>10</y>
      <width>85</width>
-     <height>61</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="text">
-    <string>8.Ανατύλιξη</string>
+    <string>3.Ανατύλιξη</string>
    </property>
    <property name="shortcut">
-    <string>8</string>
+    <string>3</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_3">
@@ -128,17 +128,17 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>10</y>
+     <x>120</x>
+     <y>180</y>
      <width>85</width>
-     <height>71</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
-    <string>3.Απογραφή</string>
+    <string>8.Απογραφή</string>
    </property>
    <property name="shortcut">
-    <string>3</string>
+    <string>8</string>
    </property>
   </widget>
   <widget class="QLabel" name="statusLabel">

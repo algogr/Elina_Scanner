@@ -18,20 +18,27 @@ rewrap_sc::rewrap_sc(QWidget *parent) :
 
 
 
-    ui->label_new1->setVisible(FALSE);
-    ui->label_new2->setVisible(FALSE);
-    ui->label_new3->setVisible(FALSE);
-    ui->label_new4->setVisible(FALSE);
-    ui->label_new5->setVisible(FALSE);
     ui->lineNew1->setVisible(FALSE);
     ui->lineNew2->setVisible(FALSE);
     ui->lineNew3->setVisible(FALSE);
     ui->lineNew4->setVisible(FALSE);
     ui->lineNew5->setVisible(FALSE);
+    ui->lineNew1A->setVisible(FALSE);
+    ui->lineNew2A->setVisible(FALSE);
+    ui->lineNew3A->setVisible(FALSE);
+    ui->lineNew4A->setVisible(FALSE);
+    ui->lineNew5A->setVisible(FALSE);
     ui->pushCancel->setEnabled(FALSE);
     ui->pushInsert->setEnabled(FALSE);
     ui->pushCancel->setFocusPolicy(Qt::NoFocus);
     ui->pushInsert->setFocusPolicy(Qt::NoFocus);
+    connect(ui->lineOldA, SIGNAL(returnPressed()), this, SLOT(scanned_oldA()));
+    connect(ui->lineNew1A, SIGNAL(returnPressed()), this, SLOT(scanned_new1A()));
+    connect(ui->lineNew2A, SIGNAL(returnPressed()), this, SLOT(scanned_new2A()));
+    connect(ui->lineNew3A, SIGNAL(returnPressed()), this, SLOT(scanned_new3A()));
+    connect(ui->lineNew4A, SIGNAL(returnPressed()), this, SLOT(scanned_new4A()));
+    connect(ui->lineNew5A, SIGNAL(returnPressed()), this, SLOT(scanned_new5A()));
+
     connect(ui->lineOld, SIGNAL(returnPressed()), this, SLOT(scanned_old()));
     connect(ui->lineNew1, SIGNAL(returnPressed()), this, SLOT(scanned_new1()));
     connect(ui->lineNew2, SIGNAL(returnPressed()), this, SLOT(scanned_new2()));
@@ -41,6 +48,7 @@ rewrap_sc::rewrap_sc(QWidget *parent) :
     connect(ui->pushCancel, SIGNAL(clicked()), this, SLOT(cancelClicked()));
     connect(ui->pushInsert, SIGNAL(clicked()), this, SLOT(insertClicked()));
     connect(this->client,SIGNAL(readyRead()),this,SLOT(startread()));
+    ui->lineOldA->setFocus();
 }
 
 rewrap_sc::~rewrap_sc()
@@ -48,6 +56,28 @@ rewrap_sc::~rewrap_sc()
     delete client;
     delete client1;
     delete ui;
+}
+
+void rewrap_sc::scanned_oldA() {
+    QString scanned = ui->lineOldA->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineOldA->setText("");
+        ui->lineOldA->setFocus();
+        return;
+    }
+    ui->lineOld->setFocus();
 }
 
 
@@ -69,9 +99,34 @@ void rewrap_sc::scanned_old() {
         ui->lineOld->setFocus();
         return;
     }
-    ui->label_new1->setVisible(TRUE);
+    ui->lineNew1A->setVisible(TRUE);
     ui->lineNew1->setVisible(TRUE);
+    ui->lineNew1A->setFocus();
+}
+
+void rewrap_sc::scanned_new1A() {
+    QString scanned = ui->lineNew1A->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineNew1A->setText("");
+        ui->lineNew1A->setFocus();
+        return;
+    }
+
     ui->lineNew1->setFocus();
+
+
+
 }
 
 void rewrap_sc::scanned_new1() {
@@ -92,12 +147,39 @@ void rewrap_sc::scanned_new1() {
         ui->lineNew1->setFocus();
         return;
     }
-    ui->label_new2->setVisible(TRUE);
+
+    ui->lineNew2A->setVisible(TRUE);
+    ui->lineNew2A->setFocus();
     ui->lineNew2->setVisible(TRUE);
-    ui->lineNew2->setFocus();
     ui->pushCancel->setEnabled(TRUE);
     ui->pushInsert->setEnabled(TRUE);
 }
+
+void rewrap_sc::scanned_new2A() {
+    QString scanned = ui->lineNew2A->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineNew2A->setText("");
+        ui->lineNew2A->setFocus();
+        return;
+    }
+
+    ui->lineNew2->setFocus();
+
+
+
+}
+
 
 void rewrap_sc::scanned_new2() {
     QString scanned = ui->lineNew2->text();
@@ -117,10 +199,37 @@ void rewrap_sc::scanned_new2() {
         ui->lineNew2->setFocus();
         return;
     }
-    ui->label_new3->setVisible(TRUE);
+
+    ui->lineNew3A->setVisible(TRUE);
+    ui->lineNew3A->setFocus();
     ui->lineNew3->setVisible(TRUE);
-    ui->lineNew3->setFocus();
 }
+
+void rewrap_sc::scanned_new3A() {
+    QString scanned = ui->lineNew3A->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineNew3A->setText("");
+        ui->lineNew3A->setFocus();
+        return;
+    }
+
+    ui->lineNew3->setFocus();
+
+
+
+}
+
 
 void rewrap_sc::scanned_new3() {
     QString scanned = ui->lineNew3->text();
@@ -140,10 +249,38 @@ void rewrap_sc::scanned_new3() {
         ui->lineNew3->setFocus();
         return;
     }
-    ui->label_new4->setVisible(TRUE);
+
+    ui->lineNew4A->setVisible(TRUE);
+    ui->lineNew4A->setFocus();
     ui->lineNew4->setVisible(TRUE);
-    ui->lineNew4->setFocus();
 }
+
+void rewrap_sc::scanned_new4A() {
+    QString scanned = ui->lineNew4A->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineNew4A->setText("");
+        ui->lineNew4A->setFocus();
+        return;
+    }
+
+    ui->lineNew4->setFocus();
+
+
+
+}
+
+
 
 void rewrap_sc::scanned_new4() {
     QString scanned = ui->lineNew4->text();
@@ -163,10 +300,38 @@ void rewrap_sc::scanned_new4() {
         ui->lineNew4->setFocus();
         return;
     }
-    ui->label_new5->setVisible(TRUE);
+
+    ui->lineNew5A->setVisible(TRUE);
+    ui->lineNew5A->setFocus();
     ui->lineNew5->setVisible(TRUE);
-    ui->lineNew5->setFocus();
 }
+
+
+void rewrap_sc::scanned_new5A() {
+    QString scanned = ui->lineNew5A->text();
+
+    QRegExp ka("\[AE]\\d{14,14}");
+    if (ka.exactMatch(scanned) == FALSE) {
+        QMessageBox m;
+
+        m.setText(trUtf8("Λάθος μορφή  Κ/A"));
+        m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
+        m.setStandardButtons(QMessageBox::Ok);
+        m.move(0, 100);
+        QFont serifFont("Times", 18, QFont::Bold);
+        m.setFont(serifFont);
+        m.exec();
+        ui->lineNew5A->setText("");
+        ui->lineNew5A->setFocus();
+        return;
+    }
+
+    ui->lineNew5->setFocus();
+
+
+
+}
+
 
 void rewrap_sc::scanned_new5() {
     QString scanned = ui->lineNew5->text();
@@ -261,9 +426,13 @@ void rewrap_sc::insertClicked() {
 
     QStringList new_codes = (QStringList() << ui->lineNew1->text()
             << ui->lineNew2->text() << ui->lineNew3->text()
-            << ui->lineNew4->text() << ui->lineNew5->text());
-    QString old_code = ui->lineOld->text();
-    insert_production(old_code, new_codes);
+            << ui->lineNew4->text() << ui->lineNew5->text()
+            << ui->lineNew1A->text() << ui->lineNew2A->text()
+            << ui->lineNew3A->text() << ui->lineNew4A->text()
+            << ui->lineNew5A->text());
+
+    QStringList old_codes = (QStringList() << ui->lineOld->text() << ui->lineOldA->text());
+    insert_production(old_codes, new_codes);
     //delete(this);
 }
 
@@ -271,9 +440,9 @@ void rewrap_sc::cancelClicked() {
     delete (this);
 }
 
-void rewrap_sc::insert_production(QString old_code, QStringList new_codes) {
+void rewrap_sc::insert_production(QStringList old_codes, QStringList new_codes) {
 
-            QString code1,code2,code3,code4,code5;
+            QString code1,code2,code3,code4,code5,code1A,code2A,code3A,code4A,code5A,oldcode,oldcodeA;
             code1=new_codes.value(0);
             if(new_codes.value(1)!="")
                 code2=new_codes.value(1);
@@ -283,14 +452,27 @@ void rewrap_sc::insert_production(QString old_code, QStringList new_codes) {
                 code4=new_codes.value(3);
             if(new_codes.value(4)!="")
                 code5=new_codes.value(4);
+            code1A=new_codes.value(5);
+            if(new_codes.value(6)!="")
+                code2A=new_codes.value(6);
+            if(new_codes.value(7)!="")
+                code3A=new_codes.value(7);
+            if(new_codes.value(8)!="")
+                code4A=new_codes.value(8);
+            if(new_codes.value(9)!="")
+                code5A=new_codes.value(9);
+
+            oldcode=old_codes.value(0);
+            oldcodeA=old_codes.value(1);
 
 
             QByteArray block;
             QDataStream out(&block, QIODevice::WriteOnly);
             out.setVersion(QDataStream::Qt_4_1);
             QString req_type = "PRREWRAP";
-            qDebug() << req_type << old_code << code1 << code2<< code3<< code4<< code5;;
-            out << quint16(0) << req_type << old_code << code1 << code2<< code3<< code4<< code5;
+            qDebug() << req_type << oldcode << code1 << code2<< code3<< code4<< code5;
+            out << quint16(0) << req_type << oldcode << code1 << code2 << code3 << code4 << code5
+                << oldcodeA << code1A << code2A << code3A << code4A << code5A;
             out.device()->seek(0);
             out << quint16(block.size() - sizeof(quint16));
             client->write(block);
@@ -336,105 +518,6 @@ void rewrap_sc::startread()
 
         in >>f_code>>vardia>>pid1>>pid2>>pid3>>pid4>>pid5;
 
-        int last_record=0;
-        if (pid2=="")
-            last_record=1;
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_4_1);
-        QString req_type = "KFREWRAP";
-        out << quint16(0) << req_type << ui->lineOld->text() << ui->lineNew1->text() << f_code << pid1<< vardia <<last_record ;
-        out.device()->seek(0);
-        out << quint16(block.size() - sizeof(quint16));
-        client->write(block);
-        QByteArray block1;
-        QDataStream out1(&block, QIODevice::WriteOnly);
-        out1.setVersion(QDataStream::Qt_4_1);
-        out1 << quint16(0xFFFF);
-        client->write(block1);
-
-
-        if (pid2!="")
-        {
-            QByteArray block;
-            qDebug()<<"MPIKA2";
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-            if (pid3=="")
-                last_record=1;
-            QString req_type = "KFREWRAP";
-            out << quint16(0) << req_type << ui->lineOld->text() << ui->lineNew2->text() << f_code << pid2<< vardia <<last_record ;
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            client->write(block);
-            QByteArray block1;
-            QDataStream out1(&block, QIODevice::WriteOnly);
-            out1.setVersion(QDataStream::Qt_4_1);
-            out1 << quint16(0xFFFF);
-            client->write(block1);
-
-        }
-
-        if (pid3!="")
-        {
-            QByteArray block;
-            qDebug()<<"MPIKA3";
-            if (pid4=="")
-                last_record=1;
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-            QString req_type = "KFREWRAP";
-            out << quint16(0) << req_type << ui->lineOld->text() << ui->lineNew3->text() << f_code << pid3<< vardia <<last_record ;
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            client->write(block);
-            QByteArray block1;
-            QDataStream out1(&block, QIODevice::WriteOnly);
-            out1.setVersion(QDataStream::Qt_4_1);
-            out1 << quint16(0xFFFF);
-            client->write(block1);
-
-        }
-
-        if (pid4!="")
-        {
-            QByteArray block;
-            qDebug()<<"MPIKA4";
-            if (pid5=="")
-                last_record=1;
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-            QString req_type = "KFREWRAP";
-            out << quint16(0) << req_type << ui->lineOld->text() << ui->lineNew4->text() << f_code << pid4<< vardia <<last_record ;
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            client->write(block);
-            QByteArray block1;
-            QDataStream out1(&block, QIODevice::WriteOnly);
-            out1.setVersion(QDataStream::Qt_4_1);
-            out1 << quint16(0xFFFF);
-            client->write(block1);
-
-        }
-
-        if (pid5!="")
-        {
-            QByteArray block;
-            qDebug()<<"MPIKA5";
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-            QString req_type = "KFREWRAP";
-            out << quint16(0) << req_type << ui->lineOld->text() << ui->lineNew5->text() << f_code << pid5<< vardia <<1 ;
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            client->write(block);
-            QByteArray block1;
-            QDataStream out1(&block, QIODevice::WriteOnly);
-            out1.setVersion(QDataStream::Qt_4_1);
-            out1 << quint16(0xFFFF);
-            client->write(block1);
-
-        }
 
         QMessageBox m;
         QString mtext;
@@ -448,16 +531,30 @@ void rewrap_sc::startread()
         //m.setFont(serifFont);
         m.exec();
 
-        ui->label_new1->setVisible(FALSE);
-        ui->label_new2->setVisible(FALSE);
-        ui->label_new3->setVisible(FALSE);
-        ui->label_new4->setVisible(FALSE);
-        ui->label_new5->setVisible(FALSE);
+        ui->lineNew1A->setVisible(FALSE);
+        ui->lineNew2A->setVisible(FALSE);
+        ui->lineNew3A->setVisible(FALSE);
+        ui->lineNew4A->setVisible(FALSE);
+        ui->lineNew5A->setVisible(FALSE);
         ui->lineNew1->setVisible(FALSE);
         ui->lineNew2->setVisible(FALSE);
         ui->lineNew3->setVisible(FALSE);
         ui->lineNew4->setVisible(FALSE);
         ui->lineNew5->setVisible(FALSE);
+
+        ui->lineNew1A->setText("");
+        ui->lineNew2A->setText("");
+        ui->lineNew3A->setText("");
+        ui->lineNew4A->setText("");
+        ui->lineNew5A->setText("");
+        ui->lineNew1->setText("");
+        ui->lineNew2->setText("");
+        ui->lineNew3->setText("");
+        ui->lineNew4->setText("");
+        ui->lineNew5->setText("");
+        ui->lineOld->setText("");
+        ui->lineOldA->setText("");
+
         ui->pushCancel->setEnabled(FALSE);
         ui->pushInsert->setEnabled(FALSE);
         ui->pushCancel->setFocusPolicy(Qt::NoFocus);

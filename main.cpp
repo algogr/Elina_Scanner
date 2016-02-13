@@ -21,7 +21,9 @@
 #include <QApplication>
 #include <QtPlugin>
 
-//Q_IMPORT_PLUGIN(qgenericbearer)
+#ifdef _WIN32_WCE
+Q_IMPORT_PLUGIN(qgenericbearer)
+#endif
 
 int main(int argc, char *argv[])
 {

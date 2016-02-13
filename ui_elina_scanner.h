@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'elina_scanner.ui'
 **
-** Created: Thu Jan 8 15:28:02 2015
-**      by: Qt User Interface Compiler version 4.7.3
+** Created by: Qt User Interface Compiler version 4.8.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -45,7 +44,7 @@ public:
         Elina_ScannerClass->resize(320, 300);
         pushButton_8 = new QPushButton(Elina_ScannerClass);
         pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
-        pushButton_8->setGeometry(QRect(120, 180, 85, 61));
+        pushButton_8->setGeometry(QRect(220, 10, 85, 71));
         pushButton_3 = new QPushButton(Elina_ScannerClass);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
         pushButton_3->setGeometry(QRect(20, 100, 85, 61));
@@ -66,7 +65,7 @@ public:
         pushButton_7->setGeometry(QRect(120, 10, 85, 71));
         pushButton_2 = new QPushButton(Elina_ScannerClass);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(220, 10, 85, 71));
+        pushButton_2->setGeometry(QRect(120, 180, 85, 61));
         statusLabel = new QLabel(Elina_ScannerClass);
         statusLabel->setObjectName(QString::fromUtf8("statusLabel"));
         statusLabel->setGeometry(QRect(10, 250, 91, 20));
@@ -89,8 +88,8 @@ public:
     void retranslateUi(QWidget *Elina_ScannerClass)
     {
         Elina_ScannerClass->setWindowTitle(QApplication::translate("Elina_ScannerClass", "Scanner", 0, QApplication::UnicodeUTF8));
-        pushButton_8->setText(QApplication::translate("Elina_ScannerClass", "8.\316\221\316\275\316\261\317\204\317\215\316\273\316\271\316\276\316\267", 0, QApplication::UnicodeUTF8));
-        pushButton_8->setShortcut(QApplication::translate("Elina_ScannerClass", "8", 0, QApplication::UnicodeUTF8));
+        pushButton_8->setText(QApplication::translate("Elina_ScannerClass", "3.\316\221\316\275\316\261\317\204\317\215\316\273\316\271\316\276\316\267", 0, QApplication::UnicodeUTF8));
+        pushButton_8->setShortcut(QApplication::translate("Elina_ScannerClass", "3", 0, QApplication::UnicodeUTF8));
         pushButton_3->setText(QApplication::translate("Elina_ScannerClass", "4.\316\225\317\200\316\271\317\203\317\204\317\201\316\277\317\206\316\255\317\202", 0, QApplication::UnicodeUTF8));
         pushButton_3->setShortcut(QApplication::translate("Elina_ScannerClass", "4", 0, QApplication::UnicodeUTF8));
         pushButton_4->setText(QApplication::translate("Elina_ScannerClass", "5.\316\221\316\273\316\273.\316\265\317\204\316\271\316\272\316\265\317\204.", 0, QApplication::UnicodeUTF8));
@@ -103,8 +102,8 @@ public:
         pushButton->setShortcut(QApplication::translate("Elina_ScannerClass", "1", 0, QApplication::UnicodeUTF8));
         pushButton_7->setText(QApplication::translate("Elina_ScannerClass", "2.\316\240\317\201\316\277\317\206\317\214\317\201\317\204.", 0, QApplication::UnicodeUTF8));
         pushButton_7->setShortcut(QApplication::translate("Elina_ScannerClass", "2", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("Elina_ScannerClass", "3.\316\221\317\200\316\277\316\263\317\201\316\261\317\206\316\256", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setShortcut(QApplication::translate("Elina_ScannerClass", "3", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setText(QApplication::translate("Elina_ScannerClass", "8.\316\221\317\200\316\277\316\263\317\201\316\261\317\206\316\256", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setShortcut(QApplication::translate("Elina_ScannerClass", "8", 0, QApplication::UnicodeUTF8));
         statusLabel->setText(QString());
         statusLabel_2->setText(QString());
         pushButton_9->setText(QApplication::translate("Elina_ScannerClass", "9.\316\221\317\200\316\277\317\203\317\204o\316\273\316\256", 0, QApplication::UnicodeUTF8));

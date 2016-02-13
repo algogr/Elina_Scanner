@@ -1,8 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'change_label.h'
 **
-** Created: Fri Aug 28 21:28:38 2015
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
+** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.7)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +9,8 @@
 #include "change_label.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'change_label.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.3. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.7. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +19,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_change_label[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -43,9 +42,28 @@ static const char qt_meta_stringdata_change_label[] = {
     "scan_new()\0"
 };
 
+void change_label::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        change_label *_t = static_cast<change_label *>(_o);
+        switch (_id) {
+        case 0: _t->send_change(); break;
+        case 1: _t->scan_old(); break;
+        case 2: _t->scan_new(); break;
+        default: ;
+        }
+    }
+    Q_UNUSED(_a);
+}
+
+const QMetaObjectExtraData change_label::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject change_label::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_change_label,
-      qt_meta_data_change_label, 0 }
+      qt_meta_data_change_label, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -71,12 +89,8 @@ int change_label::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: send_change(); break;
-        case 1: scan_old(); break;
-        case 2: scan_new(); break;
-        default: ;
-        }
+        if (_id < 3)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 3;
     }
     return _id;

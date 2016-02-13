@@ -90,3 +90,5 @@ FORMS += read_label.ui \
     apografi_comment.ui \
     fortosi_sel_1.ui
 RESOURCES +=
+
+DISTFILES +=

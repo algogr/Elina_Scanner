@@ -61,6 +61,7 @@ private:
     //void timerEvent(QTimerEvent *event);
     void transmit_apografi();
     QNetworkReply* reply;
+    QMessageBox apm;
 
 
 private slots:

@@ -345,8 +345,9 @@ void apografi::info()
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     QVariant line_count=0;
-    QString line=in.readLine();
-    int no=0;
+    QString line;
+            //=in.readLine();
+    int no=1;
     while (!in.atEnd())
     {
         line_count=no++;

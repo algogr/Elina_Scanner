@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fortosi_progress_1.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created by: Qt User Interface Compiler version 4.8.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -36,7 +36,7 @@ public:
         fortosi_progress_1Class->resize(320, 300);
         tableWidget = new QTableWidget(fortosi_progress_1Class);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(0, 71, 311, 171));
+        tableWidget->setGeometry(QRect(0, 60, 311, 161));
         tableWidget->verticalHeader()->setVisible(false);
         pushReview = new QPushButton(fortosi_progress_1Class);
         pushReview->setObjectName(QString::fromUtf8("pushReview"));
@@ -60,7 +60,7 @@ public:
         pushContinue->setFont(font);
         pushDelete = new QPushButton(fortosi_progress_1Class);
         pushDelete->setObjectName(QString::fromUtf8("pushDelete"));
-        pushDelete->setGeometry(QRect(110, 250, 85, 41));
+        pushDelete->setGeometry(QRect(110, 230, 85, 41));
         QFont font2;
         font2.setPointSize(10);
         pushDelete->setFont(font2);
