@@ -33,7 +33,6 @@ public:
     QLabel *labelWeight;
     QPushButton *devPush;
     QPushButton *pushCheck;
-    QPushButton *pushProf;
     QLabel *labelPieces;
 
     void setupUi(QDialog *fortosi_new_1_1Class)
@@ -91,9 +90,6 @@ public:
         pushCheck = new QPushButton(fortosi_new_1_1Class);
         pushCheck->setObjectName(QString::fromUtf8("pushCheck"));
         pushCheck->setGeometry(QRect(20, 270, 85, 27));
-        pushProf = new QPushButton(fortosi_new_1_1Class);
-        pushProf->setObjectName(QString::fromUtf8("pushProf"));
-        pushProf->setGeometry(QRect(120, 270, 85, 27));
         labelPieces = new QLabel(fortosi_new_1_1Class);
         labelPieces->setObjectName(QString::fromUtf8("labelPieces"));
         labelPieces->setGeometry(QRect(170, 20, 41, 41));
@@ -118,7 +114,6 @@ public:
         devPush->setText(QApplication::translate("fortosi_new_1_1Class", "\316\240\317\201\316\277\317\203\317\211\317\201\316\271\316\275\316\256\n"
 "\316\232\316\261\317\204\316\261\317\207\317\216\317\201\316\267\317\203\316\267", 0, QApplication::UnicodeUTF8));
         pushCheck->setText(QApplication::translate("fortosi_new_1_1Class", "\316\210\316\273\316\265\316\263\317\207\316\277\317\202", 0, QApplication::UnicodeUTF8));
-        pushProf->setText(QApplication::translate("fortosi_new_1_1Class", "\316\243\317\215\316\263\316\272\317\201\316\271\317\203\316\267", 0, QApplication::UnicodeUTF8));
         labelPieces->setText(QString());
     } // retranslateUi
 

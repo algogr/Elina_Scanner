@@ -6,20 +6,9 @@ QT += core \
     network
 HEADERS += read_label.h \
     change_label.h \
-    sxpf.h \
-    katastrofi.h \
     network_test.h \
     apografi.h \
     fortosi_new_1a.h \
-    profortosi_progress_1_2.h \
-    profortosi_progress_1_1.h \
-    profortosi_progress_1.h \
-    profortosi_new_1_2.h \
-    profortosi_new_1_1.h \
-    profortosi_new_1_b.h \
-    profortosi_new_1.h \
-    profortosi_sel.h \
-    fortosi_new_1_2.h \
     fortosi_progress_1_2.h \
     fortosi_progress_1_1.h \
     fortosi_progress_1.h \
@@ -35,20 +24,9 @@ HEADERS += read_label.h \
     fortosi_sel_1.h
 SOURCES += read_label.cpp \
     change_label.cpp \
-    sxpf.cpp \
-    katastrofi.cpp \
     network_test.cpp \
     apografi.cpp \
     fortosi_new_1a.cpp \
-    profortosi_progress_1_2.cpp \
-    profortosi_progress_1_1.cpp \
-    profortosi_progress_1.cpp \
-    profortosi_new_1_2.cpp \
-    profortosi_new_1_1.cpp \
-    profortosi_new_1_b.cpp \
-    profortosi_new_1.cpp \
-    profortosi_sel.cpp \
-    fortosi_new_1_2.cpp \
     fortosi_progress_1_2.cpp \
     fortosi_progress_1_1.cpp \
     fortosi_progress_1.cpp \
@@ -64,19 +42,8 @@ SOURCES += read_label.cpp \
     fortosi_sel_1.cpp
 FORMS += read_label.ui \
     change_label.ui \
-    sxpf.ui \
-    katastrofi.ui \
     apografi.ui \
     fortosi_new_1a.ui \
-    profortosi_progress_1_2.ui \
-    profortosi_progress_1_1.ui \
-    profortosi_progress_1.ui \
-    profortosi_new_1_2.ui \
-    profortosi_new_1_1.ui \
-    profortosi_new_1_b.ui \
-    profortosi_new_1.ui \
-    profortosi_sel.ui \
-    fortosi_new_1_2.ui \
     fortosi_progress_1_2.ui \
     fortosi_progress_1_1.ui \
     fortosi_progress_1.ui \

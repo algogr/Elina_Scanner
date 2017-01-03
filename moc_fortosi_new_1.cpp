@@ -22,7 +22,7 @@ static const uint qt_meta_data_fortosi_new_1[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,8 +36,7 @@ static const uint qt_meta_data_fortosi_new_1[] = {
       53,   14,   14,   14, 0x08,
       68,   60,   14,   14, 0x08,
       90,   14,   14,   14, 0x08,
-      97,   14,   14,   14, 0x08,
-     116,  110,   14,   14, 0x08,
+     109,  103,   14,   14, 0x08,
 
        0        // eod
 };
@@ -45,7 +44,7 @@ static const uint qt_meta_data_fortosi_new_1[] = {
 static const char qt_meta_stringdata_fortosi_new_1[] = {
     "fortosi_new_1\0\0startread()\0"
     "requestCustomers()\0next()\0back()\0"
-    "row,col\0tableclicked(int,int)\0prof()\0"
+    "row,col\0tableclicked(int,int)\0"
     "onTypeChar()\0state\0change_language(int)\0"
 };
 
@@ -60,9 +59,8 @@ void fortosi_new_1::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 2: _t->next(); break;
         case 3: _t->back(); break;
         case 4: _t->tableclicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 5: _t->prof(); break;
-        case 6: _t->onTypeChar(); break;
-        case 7: _t->change_language((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->onTypeChar(); break;
+        case 6: _t->change_language((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -100,9 +98,9 @@ int fortosi_new_1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 7;
     }
     return _id;
 }

@@ -34,7 +34,6 @@ public:
     QPushButton *tempPush;
     QPushButton *pushCancel;
     QLabel *labelWeight;
-    QPushButton *pushProf;
     QPushButton *pushCheck;
     QLabel *labelPieces;
 
@@ -56,7 +55,7 @@ public:
         label->setGeometry(QRect(10, 10, 61, 16));
         labelCustomer = new QLabel(fortosi_progress_1_2Class);
         labelCustomer->setObjectName(QString::fromUtf8("labelCustomer"));
-        labelCustomer->setGeometry(QRect(60, 10, 151, 20));
+        labelCustomer->setGeometry(QRect(80, 10, 151, 20));
         pushDelete = new QPushButton(fortosi_progress_1_2Class);
         pushDelete->setObjectName(QString::fromUtf8("pushDelete"));
         pushDelete->setGeometry(QRect(230, 80, 81, 41));
@@ -83,12 +82,9 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         labelWeight->setFont(font1);
-        pushProf = new QPushButton(fortosi_progress_1_2Class);
-        pushProf->setObjectName(QString::fromUtf8("pushProf"));
-        pushProf->setGeometry(QRect(120, 260, 85, 27));
         pushCheck = new QPushButton(fortosi_progress_1_2Class);
         pushCheck->setObjectName(QString::fromUtf8("pushCheck"));
-        pushCheck->setGeometry(QRect(20, 260, 85, 27));
+        pushCheck->setGeometry(QRect(10, 260, 85, 27));
         labelPieces = new QLabel(fortosi_progress_1_2Class);
         labelPieces->setObjectName(QString::fromUtf8("labelPieces"));
         labelPieces->setGeometry(QRect(160, 40, 61, 31));
@@ -114,7 +110,6 @@ public:
 "\316\232\316\261\317\204\316\261\317\207\317\216\317\201\316\267\317\203\316\267", 0, QApplication::UnicodeUTF8));
         pushCancel->setText(QApplication::translate("fortosi_progress_1_2Class", "\316\247", 0, QApplication::UnicodeUTF8));
         labelWeight->setText(QString());
-        pushProf->setText(QApplication::translate("fortosi_progress_1_2Class", "\316\243\317\215\316\263\316\272\317\201\316\271\317\203\316\267", 0, QApplication::UnicodeUTF8));
         pushCheck->setText(QApplication::translate("fortosi_progress_1_2Class", "\316\210\316\273\316\265\316\263\317\207\316\277\317\202", 0, QApplication::UnicodeUTF8));
         labelPieces->setText(QString());
     } // retranslateUi

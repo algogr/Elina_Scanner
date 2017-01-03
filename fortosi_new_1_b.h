@@ -21,7 +21,7 @@
 #include <QtGui/QDialog>
 #include "ui_fortosi_new_1_b.h"
 #include "fortosi_new_1_1.h"
-#include "fortosi_new_1_2.h"
+
 #include <QtNetwork>
 #include <QTcpSocket>
 
@@ -30,14 +30,14 @@ class fortosi_new_1_b : public QDialog
     Q_OBJECT
 
 public:
-    fortosi_new_1_b(QWidget *parent = 0,QString ccode="",QString customer="", QString car1="",QString car2="",QString prfid="0");
+    fortosi_new_1_b(QWidget *parent = 0,const QString &ccode="",const QString &customer="", const QString &car1="",const QString &car2="");
     ~fortosi_new_1_b();
     QWidget *parent;
     QString ccode;
     QString customer;
     QString car1;
     QString car2;
-    QString prfid;
+
 
 
 private:
@@ -46,7 +46,7 @@ private:
 private slots:
 	void back();
 	void loop();
-	void code();
+
 
 };
 

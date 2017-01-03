@@ -24,11 +24,6 @@ fortosi_sel::fortosi_sel(QWidget *parent)
 {
 
     ui.setupUi(this);
-    QString ipath=(QString)APATH+"/img/truck1.png";
-    QIcon *icon=new QIcon(ipath);
-
-    this->setWindowIcon(*icon);
-    delete icon;
     p=static_cast<Elina_Scanner*>(parent);
 
 
@@ -65,108 +60,6 @@ void fortosi_sel::retransmit_fortosi()
     fortosi_sel_1 *w=new fortosi_sel_1(this);
     w->show();
     w->move(0,0);
-    /*
-    qDebug()<<"MPIKA1"<<p->networkstatus;
-    if (p->networkstatus==TRUE)
-    {
-        qDebug()<<"MPIKA2";
-    ui.pushButton->setEnabled(FALSE);
-    ui.pushButton_2->setEnabled(FALSE);
-    ui.pushButton_3->setEnabled(FALSE);
-    QHostAddress addr((QString) SVR_HOST);
-    client->connectToHost(addr, 8889);
-    QFile file("fortosi.txt");
-    QTextStream in(&file);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qDebug()<<"DEN MPOTO";
-        return;
-    }
-    QString line=in.readLine();
-    QString req_type,ccode,customer,car1,car2,code_t,weight,prfid;
-    if (line.trimmed()=="1")
-    {
-        line=in.readLine();
-
-        while(line.trimmed().left(3)!="EOF")
-        {
-            req_type=line.trimmed();
-            ccode=in.readLine().trimmed();
-            customer=in.readLine().trimmed();
-            car1=in.readLine().trimmed();
-            car2=in.readLine().trimmed();
-            code_t=in.readLine().trimmed();
-            weight=in.readLine().trimmed();
-            prfid=in.readLine().trimmed();
-            qDebug()<<"PRFID:"<<prfid;
-            QByteArray block;
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-
-            out << quint16(0) << req_type << ccode << customer << car1 << car2
-                << code_t<< weight<< prfid;
-
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            qDebug()<<"BLOCKSIZE"<<block.size();
-            client->write(block);
-            line=in.readLine();
-            line=in.readLine();
-        }
-        QByteArray block1;
-        QDataStream out1(&block1, QIODevice::WriteOnly);
-        out1.setVersion(QDataStream::Qt_4_1);
-        out1 << quint16(0xFFFF);
-        client->write(block1);
-        file.close();
-    }
-    else
-    {
-        line=in.readLine();
-
-        while(line.trimmed().left(3)!="EOF")
-        {
-            req_type=line.trimmed();
-            customer=in.readLine().trimmed();
-            code_t=in.readLine().trimmed();
-            weight=in.readLine().trimmed();
-            prfid=in.readLine().trimmed();
-            qDebug()<<"PRFID:"<<prfid;
-            QByteArray block;
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_1);
-
-            out << quint16(0) << req_type << customer <<  code_t<< weight<< prfid;
-
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            qDebug()<<"BLOCKSIZE"<<block.size();
-            client->write(block);
-            line=in.readLine();
-            line=in.readLine();
-        }
-        QByteArray block1;
-        QDataStream out1(&block1, QIODevice::WriteOnly);
-        out1.setVersion(QDataStream::Qt_4_1);
-        out1 << quint16(0xFFFF);
-        client->write(block1);
-        file.close();
-    }
-    }
-    else
-    {
-        qDebug()<<"MPIKA";
-        QMessageBox m;
-        m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
-        QSound::play("bell.wav");
-        m.setStandardButtons(QMessageBox::Ok);
-        m.move(80,120);
-        m.exec();
-
-    }
-
-    //delete(client);
-    */
     return;
 
 
@@ -182,13 +75,8 @@ void fortosi_sel::ready_read()
 
     m.setStandardButtons(QMessageBox::Ok);
     m.move(80,120);
-    //QFont serifFont("Times", 18, QFont::Bold);
-    //m.setFont(serifFont);
     m.exec();
     delete (this);
-
-
-    //qDebug() << req_type;
     nextblocksize = 0;
 
 
@@ -198,7 +86,6 @@ void fortosi_sel::send_fortosi(int n)
 {
     if (p->networkstatus==TRUE)
     {
-        qDebug()<<"MPIKA2";
     ui.pushButton->setEnabled(FALSE);
     ui.pushButton_2->setEnabled(FALSE);
     ui.pushButton_3->setEnabled(FALSE);

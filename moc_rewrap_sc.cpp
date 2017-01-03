@@ -22,7 +22,7 @@ static const uint qt_meta_data_rewrap_sc[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -45,6 +45,7 @@ static const uint qt_meta_data_rewrap_sc[] = {
      195,   10,   10,   10, 0x08,
      211,   10,   10,   10, 0x08,
      227,   10,   10,   10, 0x08,
+     243,   10,   10,   10, 0x08,
 
        0        // eod
 };
@@ -57,7 +58,7 @@ static const char qt_meta_stringdata_rewrap_sc[] = {
     "scanned_new2()\0scanned_new3()\0"
     "scanned_new4()\0scanned_new5()\0"
     "insertClicked()\0cancelClicked()\0"
-    "startread()\0"
+    "resetControls()\0startread()\0"
 };
 
 void rewrap_sc::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -80,7 +81,8 @@ void rewrap_sc::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 11: _t->scanned_new5(); break;
         case 12: _t->insertClicked(); break;
         case 13: _t->cancelClicked(); break;
-        case 14: _t->startread(); break;
+        case 14: _t->resetControls(); break;
+        case 15: _t->startread(); break;
         default: ;
         }
     }
@@ -119,9 +121,9 @@ int rewrap_sc::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 16;
     }
     return _id;
 }

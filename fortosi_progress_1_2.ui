@@ -38,12 +38,6 @@
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
    </attribute>
-   <attribute name="verticalHeaderVisible">
-    <bool>false</bool>
-   </attribute>
-   <attribute name="horizontalHeaderVisible">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -61,7 +55,7 @@
   <widget class="QLabel" name="labelCustomer">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>80</x>
      <y>10</y>
      <width>151</width>
      <height>20</height>
@@ -154,23 +148,10 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushProf">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>260</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Σύγκριση</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushCheck">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>260</y>
      <width>85</width>
      <height>27</height>

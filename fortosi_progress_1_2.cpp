@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
 #include "fortosi_progress_1_2.h"
+#include "fortosi_progress_1.h"
 #include "stdio.h"
 #include <iostream>
 using namespace std;
@@ -48,7 +49,7 @@ fortosi_progress_1_2::fortosi_progress_1_2(QWidget *parent, QString fid) :
 	ui.pushDelete->setFocusPolicy(Qt::NoFocus);
 	ui.tempPush->setFocusPolicy(Qt::NoFocus);
 	ui.pushCheck->setFocusPolicy(Qt::NoFocus);
-	ui.pushProf->setFocusPolicy(Qt::NoFocus);
+
 
 	connect(ui.lineScan, SIGNAL(returnPressed()), this, SLOT(scan()));
 	connect(ui.finalPush, SIGNAL(clicked()), this, SLOT(finalize()));
@@ -61,7 +62,7 @@ fortosi_progress_1_2::fortosi_progress_1_2(QWidget *parent, QString fid) :
 
 	connect(client, SIGNAL(readyRead()), this, SLOT(startread()));
 	connect(ui.pushCheck, SIGNAL(clicked()), this, SLOT(check()));
-	connect(ui.pushProf, SIGNAL(clicked()), this, SLOT(compare()));
+
 
 	requestFortosi();
 
@@ -129,17 +130,18 @@ void fortosi_progress_1_2::startread() {
 		if (type == "RS") {
 			QString cname = "";
 			QString code_t, sweight, type,packet;
-			in >> cname >> code_t >> sweight >> prfid>>packet;
-			qDebug()<<cname<< code_t << sweight<< prfid<<packet;
+            in >> cname >> code_t >> sweight >> packet;
+            qDebug()<<cname<< code_t << sweight<<packet;
 			ui.labelCustomer->setText(cname);
 			customer = cname;
 			ui.labelWeight->setText(sweight);
 			weight = sweight.toInt();
 			QTableWidgetItem *a = new QTableWidgetItem;
+            a->setFlags(a->flags() ^ Qt::ItemIsEditable);
 
 			a->setText(code_t);
 
-			a->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+            //a->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
 			ui.tableWidget->setRowCount(r + 1);
 			ui.tableWidget->setItem(r, 0, a);
@@ -183,27 +185,19 @@ void fortosi_progress_1_2::startread() {
 			nextblocksize = 0;
 		}
 
-		if (type == "COMP") {
 
-			QString code_t, problem;
-			in >> code_t >> problem;
-
-			readmode = 2;
-			if (problem == "0") {
-				reply << trUtf8("O Κ/Τ ") + code_t + trUtf8(
-						" δεν υπάρχει στην προφόρτωση");
-
-			}
-
-			if (problem == "1") {
-				reply << trUtf8("O Κ/Τ ") + code_t + trUtf8(" δεν διαβάστηκε");
-
-			}
-			nextblocksize = 0;
-		}
 		if (type =="IFI")
 		{
-			delete(this);
+            //client->disconnectFromHost();
+
+            //client->deleteLater();
+            //fortosi_progress_1 *w=(fortosi_progress_1 *)parent();
+
+            //w->requestFortoseis();
+
+            //delete(w);
+            delete(this);
+
 		}
 		nextblocksize = 0;
 	}
@@ -298,6 +292,7 @@ void fortosi_progress_1_2::scan() {
 	QVariant pc = ui.tableWidget->rowCount();
 	ui.labelPieces->setText(pc.toString());
 	QTableWidgetItem *code = new QTableWidgetItem;
+    code->setFlags(code->flags() ^ Qt::ItemIsEditable);
 	if (r > 0)
 		code->setText(ui.tableWidget->item(r - 1, 0)->text());
 	ui.tableWidget->setItem(r, 0, code);
@@ -450,26 +445,6 @@ void fortosi_progress_1_2::check() {
 
 }
 
-void fortosi_progress_1_2::compare() {
-	for (int i = 0; i < r; ++i) {
-
-		QByteArray block;
-		QDataStream out(&block, QIODevice::WriteOnly);
-		out.setVersion(QDataStream::Qt_4_1);
-		QString req_type = "COMP";
-		out << quint16(0) << req_type << ui.tableWidget->item(i, 0)->text()
-				<< prfid;
-		out.device()->seek(0);
-		out << quint16(block.size() - sizeof(quint16));
-		client->write(block);
-	}
-	QByteArray block1;
-	QDataStream out1(&block1, QIODevice::WriteOnly);
-	out1.setVersion(QDataStream::Qt_4_1);
-	out1 << quint16(0xFFFF);
-	client->write(block1);
-
-}
 
 void fortosi_progress_1_2::disable_controls(){
 	ui.finalPush->setEnabled(FALSE);
@@ -477,8 +452,7 @@ void fortosi_progress_1_2::disable_controls(){
 	ui.pushCancel->setEnabled(FALSE);
 	ui.pushCheck->setEnabled(FALSE);
 	ui.pushDelete->setEnabled(FALSE);
-	ui.pushProf->setEnabled(FALSE);
-	ui.tableWidget->setEnabled(FALSE);
+    ui.tableWidget->setEnabled(FALSE);
 	ui.tempPush->setEnabled(FALSE);
 
 }
@@ -488,8 +462,7 @@ void fortosi_progress_1_2::enable_controls(){
 	ui.lineScan->setEnabled(TRUE);
 	ui.pushCancel->setEnabled(TRUE);
 	ui.pushCheck->setEnabled(TRUE);
-	ui.pushProf->setEnabled(TRUE);
-	ui.tableWidget->setEnabled(TRUE);
+    ui.tableWidget->setEnabled(TRUE);
 	ui.tempPush->setEnabled(TRUE);
 	ui.lineScan->setFocus();
 

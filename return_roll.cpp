@@ -1,11 +1,14 @@
 #include "return_roll.h"
 #include "ui_return_roll.h"
 
-return_roll::return_roll(QWidget *parent) :
+return_roll::return_roll(QWidget *parent,int mode) :
     QDialog(parent),
-    ui(new Ui::return_roll)
+    ui(new Ui::return_roll),nextblocksize(0),mode(mode)
 {
     ui->setupUi(this);
+    if (mode==1)
+        this->setWindowTitle("Καταστροφή ετικέτας");
+    this->setWindowFlags( ( (this->windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint) );
     QString ipath=(QString)APATH+"/img/app.png";
     QIcon *icon=new QIcon(ipath);
 
@@ -18,6 +21,7 @@ return_roll::return_roll(QWidget *parent) :
     this->r = 0;
     lastscanned = "A";
 
+    delete icon;
 
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setHorizontalHeaderLabels(QStringList()
@@ -34,12 +38,17 @@ return_roll::return_roll(QWidget *parent) :
 
     connect(ui->pushButton, SIGNAL(released()), this, SLOT(insert_db()));
     connect(this,SIGNAL(rejected()),this,SLOT(close_now()));
+    connect(client,SIGNAL(readyRead()),this,SLOT(startread()));
 }
 
 return_roll::~return_roll()
 {
+    client->disconnectFromHost();
+
+    client->deleteLater();
     delete ui;
-    client->close();
+
+
 }
 
 
@@ -48,6 +57,57 @@ void return_roll::close_now()
 
 
     delete(this);
+}
+
+void return_roll::startread()
+{
+    QDataStream in(client);
+
+
+    in.setVersion(QDataStream::Qt_4_1);
+    forever {
+
+        ff: if (nextblocksize == 0) {
+
+            if (client->bytesAvailable() < sizeof(quint16))
+                break;
+
+            in >> nextblocksize;
+
+
+        }
+
+        if (nextblocksize == 0xFFFF) {
+            nextblocksize = 0;
+
+            goto ff;
+
+        }
+
+        if (client->bytesAvailable() < nextblocksize)
+            break;
+        QString type, code_t, problem;
+        in >> type;
+
+
+        in >> code_t >> problem;
+
+
+
+
+        if (type == "IFI") {
+
+
+            emit rejected();
+
+        }
+
+
+        nextblocksize = 0;
+
+    }
+    nextblocksize = 0;
+
 }
 
 void return_roll::scan() {
@@ -180,20 +240,28 @@ void return_roll::insert_db() {
 
         out << code_t << code_a;
         if (code_t != "")
-            create_row(code_t, code_a);
+        {
+            int islast=0;
+            if(i==ui->tableWidget->rowCount()-1)
+                islast=1;
+
+            create_row(code_t, code_a,islast);
+        }
 
     }
     file.close();
 
-    delete (this);
+
 }
 
-void return_roll::create_row(QString code_t, QString code_a) {
+void return_roll::create_row(const QString &code_t, const QString &code_a,int islast) {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_1);
     QString req_type = "RETURN_ROLL";
-    out << quint16(0) << req_type << code_t << code_a;
+    if (mode==1)
+        req_type = "AKAT";
+    out << quint16(0) << req_type << code_t << code_a <<islast;
     out.device()->seek(0);
     out << quint16(block.size() - sizeof(quint16));
     client->write(block);

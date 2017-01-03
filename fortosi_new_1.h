@@ -27,7 +27,7 @@
 #include <QString>
 #include <QTcpSocket>
 #include "fortosi_new_1_b.h"
-#include "sxpf.h"
+
 
 
 
@@ -39,23 +39,19 @@ class fortosi_new_1 : public QDialog
     Q_OBJECT
 
 public:
-    //QSqlDatabase db;
-    //QSqlDatabase db1;
+
     fortosi_new_1(QWidget *parent = 0);
     ~fortosi_new_1();
     Ui::fortosi_new_1Class ui;
-    QString ccode,customer,car1,car2,prfid;
+    QString ccode,customer,car1,car2;
 
 
 
 private:
-    //Ui::fortosi_new_1Class ui;
-    void start(QString address, quint16 port);
 
     void readCustomers();
     void startTransfer();
     QWidget *parent;
-    //QTcpSocket *client;
     QString customers;
     QTcpSocket *client;
     quint16 blockSize;
@@ -72,7 +68,7 @@ private slots:
 	void next();
 	void back();
 	void tableclicked(int row,int col);
-	void prof();
+
 	void onTypeChar();
 	void change_language(int state);
 

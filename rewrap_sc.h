@@ -20,9 +20,11 @@ public:
     
 private:
     Ui::rewrap_sc *ui;
-    QTcpSocket *client,*client1;
+    QTcpSocket *client;
     quint16 nextblocksize;
-    void insert_production(QStringList old_codes, QStringList new_codes);
+    void insert_production(QStringList old_codes, QStringList new_codes,QStringList new_codesA);
+    bool check_ka(const QString &code);
+    bool check_kt(const QString &code);
 
 private slots:
     void scanned_oldA();
@@ -39,7 +41,9 @@ private slots:
     void scanned_new5();
     void insertClicked();
     void cancelClicked();
+    void resetControls();
     void startread();
+
 };
 
 #endif // REWRAP_SC_H

@@ -28,12 +28,6 @@
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
    </attribute>
-   <attribute name="verticalHeaderVisible">
-    <bool>false</bool>
-   </attribute>
-   <attribute name="horizontalHeaderVisible">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
@@ -165,19 +159,6 @@
    </property>
    <property name="text">
     <string>Έλεγχος</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushProf">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>270</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Σύγκριση</string>
    </property>
   </widget>
   <widget class="QLabel" name="labelPieces">

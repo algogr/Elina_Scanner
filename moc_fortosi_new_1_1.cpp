@@ -22,7 +22,7 @@ static const uint qt_meta_data_fortosi_new_1_1[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,8 +38,7 @@ static const uint qt_meta_data_fortosi_new_1_1[] = {
       79,   16,   16,   16, 0x08,
       88,   16,   16,   16, 0x08,
       96,   16,   16,   16, 0x08,
-     106,   16,   16,   16, 0x08,
-     118,   16,   16,   16, 0x08,
+     108,   16,   16,   16, 0x08,
 
        0        // eod
 };
@@ -47,7 +46,7 @@ static const uint qt_meta_data_fortosi_new_1_1[] = {
 static const char qt_meta_stringdata_fortosi_new_1_1[] = {
     "fortosi_new_1_1\0\0scan()\0finalize()\0"
     "temporary()\0back()\0cellclicked(QModelIndex)\0"
-    "delrow()\0check()\0compare()\0startread()\0"
+    "delrow()\0check()\0startread()\0"
     "lineeditclicked()\0"
 };
 
@@ -64,9 +63,8 @@ void fortosi_new_1_1::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 4: _t->cellclicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         case 5: _t->delrow(); break;
         case 6: _t->check(); break;
-        case 7: _t->compare(); break;
-        case 8: _t->startread(); break;
-        case 9: _t->lineeditclicked(); break;
+        case 7: _t->startread(); break;
+        case 8: _t->lineeditclicked(); break;
         default: ;
         }
     }
@@ -104,9 +102,9 @@ int fortosi_new_1_1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 9;
     }
     return _id;
 }

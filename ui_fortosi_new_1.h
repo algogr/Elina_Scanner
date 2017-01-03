@@ -36,7 +36,6 @@ public:
     QLineEdit *lineEdit_3;
     QTableWidget *tableWidget;
     QPushButton *searchButton;
-    QPushButton *profButton;
     QLabel *label_Customer;
     QLabel *label_ccode;
     QCheckBox *checkGreek;
@@ -85,9 +84,6 @@ public:
         searchButton = new QPushButton(fortosi_new_1Class);
         searchButton->setObjectName(QString::fromUtf8("searchButton"));
         searchButton->setGeometry(QRect(280, 10, 31, 27));
-        profButton = new QPushButton(fortosi_new_1Class);
-        profButton->setObjectName(QString::fromUtf8("profButton"));
-        profButton->setGeometry(QRect(10, 140, 121, 27));
         label_Customer = new QLabel(fortosi_new_1Class);
         label_Customer->setObjectName(QString::fromUtf8("label_Customer"));
         label_Customer->setGeometry(QRect(150, 161, 161, 20));
@@ -114,7 +110,6 @@ public:
         pushBack->setText(QApplication::translate("fortosi_new_1Class", "<<", 0, QApplication::UnicodeUTF8));
         pushBack->setShortcut(QApplication::translate("fortosi_new_1Class", "Esc", 0, QApplication::UnicodeUTF8));
         searchButton->setText(QString());
-        profButton->setText(QApplication::translate("fortosi_new_1Class", "\316\240\317\201\316\277\317\206\317\214\317\201\317\204\317\211\317\203\316\267", 0, QApplication::UnicodeUTF8));
         label_Customer->setText(QString());
         label_ccode->setText(QString());
         checkGreek->setText(QApplication::translate("fortosi_new_1Class", "\316\225\316\233\316\233\316\227\316\235\316\231\316\232\316\221", 0, QApplication::UnicodeUTF8));

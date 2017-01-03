@@ -179,7 +179,7 @@ void fortosi_new_1a::next()
 	if (fsid=="")
 		fsid="NULL";
 
-	fortosi_new_1_b *w = new fortosi_new_1_b(this->parent,pccode,pcustomer,pcar1,pcar2,fsid);
+    fortosi_new_1_b *w = new fortosi_new_1_b(this->parent,pccode,pcustomer,pcar1,pcar2);
 	w->move(0,0);
 	w->show();
 	delete(this);

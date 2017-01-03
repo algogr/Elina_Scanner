@@ -61,7 +61,7 @@ private slots:
 	void delrow();
 	void cellclicked();
 	void check();
-	void compare();
+
 
 };
 

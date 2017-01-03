@@ -22,19 +22,23 @@ change_label::change_label(QWidget *parent)
     : QDialog(parent)
 {
 	ui.setupUi(this);
+    this->setWindowFlags( ( (this->windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint) );
 	QHostAddress addr((QString)SVR_HOST);
 	client = new QTcpSocket;
 	client->connectToHost(addr, 8889);
 	ui.pushButton->setFocusPolicy(Qt::NoFocus);
 	ui.pushButton->setEnabled(FALSE);
+    ui.pushBack->setFocusPolicy(Qt::NoFocus);
 	connect (ui.pushButton,SIGNAL(released()),this,SLOT(send_change()));
 	connect (ui.lineOld,SIGNAL(returnPressed()),this,SLOT(scan_old()));
 	connect (ui.lineNew,SIGNAL(returnPressed()),this,SLOT(scan_new()));
+    connect(ui.pushBack,SIGNAL(released()),this,SLOT(back()));
 }
 
 change_label::~change_label()
 {
-	client->disconnectFromHost();
+    delete(client);
+
 }
 
 void change_label::send_change()
@@ -54,7 +58,11 @@ void change_label::send_change()
 	out1.setVersion(QDataStream::Qt_4_1);
 	out1 << quint16(0xFFFF);
 	client->write(block1);
-	this->deleteLater();
+    ui.lineOld->setText("");
+    ui.lineNew->setText("");
+    ui.lineOld->setFocus();
+    ui.pushButton->setEnabled(false);
+    //ui.lineNew->setEnabled(false);
 }
 
 void change_label::scan_old()
@@ -73,6 +81,7 @@ void change_label::scan_old()
 			m.exec();
 			ui.lineOld->setText("");
 			ui.lineOld->setFocus();
+
 			return;
 
 		}
@@ -100,6 +109,11 @@ void change_label::scan_new()
 
 		}
         ui.pushButton->setEnabled(TRUE);
+}
+
+void change_label::back()
+{
+    delete(this);
 }
 
 

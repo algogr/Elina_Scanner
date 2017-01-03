@@ -29,6 +29,7 @@ public:
     QPushButton *pushButton;
     QLabel *label;
     QLabel *label_2;
+    QPushButton *pushBack;
 
     void setupUi(QDialog *change_labelClass)
     {
@@ -43,7 +44,7 @@ public:
         lineNew->setGeometry(QRect(70, 150, 191, 41));
         pushButton = new QPushButton(change_labelClass);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(120, 230, 85, 27));
+        pushButton->setGeometry(QRect(180, 230, 85, 27));
         label = new QLabel(change_labelClass);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(70, 15, 131, 31));
@@ -54,6 +55,14 @@ public:
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(70, 120, 131, 21));
         label_2->setFont(font);
+        pushBack = new QPushButton(change_labelClass);
+        pushBack->setObjectName(QString::fromUtf8("pushBack"));
+        pushBack->setGeometry(QRect(70, 230, 85, 27));
+        QFont font1;
+        font1.setPointSize(14);
+        font1.setBold(true);
+        font1.setWeight(75);
+        pushBack->setFont(font1);
 
         retranslateUi(change_labelClass);
 
@@ -66,6 +75,7 @@ public:
         pushButton->setText(QApplication::translate("change_labelClass", "\316\221\316\273\316\273\316\261\316\263\316\256", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("change_labelClass", "\316\240\316\261\316\273\316\271\317\214\317\202 \316\232/\316\244", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("change_labelClass", "\316\235\316\255\316\277\317\202 \316\232/\316\244", 0, QApplication::UnicodeUTF8));
+        pushBack->setText(QApplication::translate("change_labelClass", "<<", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

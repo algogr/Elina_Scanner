@@ -16,21 +16,24 @@ class return_roll : public QDialog
     Q_OBJECT
     
 public:
-    explicit return_roll(QWidget *parent = 0);
+    //mode 0=return,1=katastrofi
+    explicit return_roll(QWidget *parent = 0,int mode=0);
     ~return_roll();
     
 private:
     Ui::return_roll *ui;
-    int r;
+    int r,mode;
 
     QTcpSocket *client;
 
     QString lastscanned;
 
-    void create_row(QString code_t,QString code_a);
-    virtual bool eventFilter(QObject *object, QEvent *event);
+    void create_row(const QString &code_t,const QString &code_a,int islast);
+    bool eventFilter(QObject *object, QEvent *event);
     QString ver_code;
     QStringList confirmed;
+    quint16 nextblocksize;
+
 
 
 
@@ -39,6 +42,7 @@ private slots:
     void insert_db();
     void lock();
     void close_now();
+    void startread();
 };
 
 #endif // RETURN_ROLL_H

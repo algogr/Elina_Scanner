@@ -34,13 +34,12 @@ class fortosi_new_1_1 : public QDialog
     Q_OBJECT
 
 public:
-    fortosi_new_1_1(QWidget *parent = 0,QString ccode="",QString customer="",QString car1="",QString car2="",QString prfid="0");
+    fortosi_new_1_1(QWidget *parent = 0,const QString &ccode="",const QString &customer="",const QString &car1="",const QString &car2="");
     ~fortosi_new_1_1();
     QString ccode;
     QString customer;
     QString car1;
     QString car2;
-    QString prfid;
     QTcpSocket *client;
     quint16 nextblocksize;
 
@@ -61,7 +60,7 @@ private slots:
 	void cellclicked(const QModelIndex &);
 	void delrow();
 	void check();
-	void compare();
+
 	void startread();
     void lineeditclicked();
 };

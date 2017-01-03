@@ -99,14 +99,22 @@
   <widget class="QPushButton" name="pushLoop">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>100</y>
+     <x>180</x>
+     <y>140</y>
      <width>101</width>
      <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>36</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>1.Κατά συρροή</string>
+    <string>&gt;&gt;</string>
    </property>
    <property name="shortcut">
     <string>1</string>
@@ -123,22 +131,6 @@
    </property>
    <property name="text">
     <string>/</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushCode">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>180</y>
-     <width>101</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>2.Κατά κωδικό</string>
-   </property>
-   <property name="shortcut">
-    <string>2</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushBack">

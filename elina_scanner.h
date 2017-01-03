@@ -21,19 +21,17 @@
 #include <QtGui/QDialog>
 #include "ui_elina_scanner.h"
 #include "fortosi_sel.h"
-#include "profortosi_sel.h"
 #include "apografi.h"
 #include <QtNetwork>
 #include <QTcpSocket>
 #include "constants.h"
-#include "katastrofi.h"
+
 #include "change_label.h"
 #include "read_label.h"
 #include "rewrap_sc.h"
 #include "return_roll.h"
 
 
-//#include <QNetworkConfigurationManager>
 class Elina_Scanner : public QDialog
 {
     Q_OBJECT
@@ -45,7 +43,7 @@ public:
     bool read_ap,write_ap;
     bool networkstatus;
 
-    //static QNetworkConfigurationManager mgr;
+
 
 
 private:
@@ -56,9 +54,6 @@ private:
     QNetworkConfigurationManager *mgr;
     int ifino,apogrno;
     QString macaddress;
-    //QTimer *timer;
-    //QBasicTimer *timer;
-    //void timerEvent(QTimerEvent *event);
     void transmit_apografi();
     QNetworkReply* reply;
     QMessageBox apm;
@@ -66,14 +61,11 @@ private:
 
 private slots:
 	void fortosi();
-	void profortosi();
-	void apografi_s();
+    void apografi_s();
 	void katastrofi_s();
 	void change_label_s();
 	void read_label_s();
     void rewrap_label();
-    void transmit_data();
-	void startread();
     void returnroll();
     void check_online();
     void check_state(QAbstractSocket::SocketState state);

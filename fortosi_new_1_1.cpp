@@ -21,29 +21,25 @@
 #include <QHostAddress>
 using namespace std;
 
-fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, QString ccode,
-		QString customer, QString car1, QString car2, QString prfid) :
+fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, const QString &ccode,const QString &customer, const QString &car1, const QString &car2) :
 	QDialog(parent) {
 	//client = pclient;
     QHostAddress addr((QString) SVR_HOST);
     client = new QTcpSocket;
     client->connectToHost(addr, 8889);
 	nextblocksize = 0;
-	//client->setReadBufferSize((qint64)120000);
+
 	this->ccode = ccode;
 	this->customer = customer;
 	this->car1 = car1;
 	this->car2 = car2;
-	this->prfid = prfid;
 
-	//qDebug() << "ccode:" << ccode << "customer:" << customer << "car1:" << car1
-	//<< "car2:" << car2 << "prfid:" << prfid;
+
+
 	ui.setupUi(this);
 	QString ipath = (QString) APATH + "/img/app.png";
 	QIcon *icon = new QIcon(ipath);
-	if (prfid == "0")
-		ui.pushProf->setVisible(FALSE);
-	this->setWindowIcon(*icon);
+    this->setWindowIcon(*icon);
 	r = 0;
 	weight = 0;
 	ui.finalPush->setFocusPolicy(Qt::NoFocus);
@@ -58,21 +54,21 @@ fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, QString ccode,
 	connect(ui.finalPush, SIGNAL(clicked()), this, SLOT(finalize()));
 	connect(ui.devPush, SIGNAL(clicked()), this, SLOT(temporary()));
 	connect(ui.back, SIGNAL(clicked()), this, SLOT(back()));
-	//connect(ui.tableWidget, SIGNAL(cellClicked(int row,int column)), this, SLOT(cellclicked()));
+
 	connect(ui.pushdelrow, SIGNAL(clicked()), this, SLOT(delrow()));
 	connect(ui.tableWidget, SIGNAL(pressed(const QModelIndex &)), this,
 			SLOT(cellclicked(const QModelIndex &)));
 	connect(ui.pushCheck, SIGNAL(clicked()), this, SLOT(check()));
-	connect(ui.pushProf, SIGNAL(clicked()), this, SLOT(compare()));
+
     connect(client, SIGNAL(readyRead()), this, SLOT(startread()));
-    //connect(ui.lineEdit,SIGNAL(clicked()),this,SLOT(lineeditclicked()));
+
     delete icon;
 }
 
 fortosi_new_1_1::~fortosi_new_1_1() {
     client->disconnectFromHost();
     client->waitForDisconnected(1000);
-    //delete client;
+    client->deleteLater();
 }
 
 void fortosi_new_1_1::scan() {
@@ -144,6 +140,7 @@ void fortosi_new_1_1::scan() {
 	QVariant rc = ui.tableWidget->rowCount();
 	ui.labelPieces->setText(rc.toString());
 	QTableWidgetItem *code = new QTableWidgetItem;
+    code->setFlags(code->flags() ^ Qt::ItemIsEditable);
 	if (r > 0)
 		code->setText(ui.tableWidget->item(r - 1, 0)->text());
 	ui.tableWidget->setItem(r, 0, code);
@@ -182,8 +179,7 @@ void fortosi_new_1_1::finalize() {
     for (int j=0;j<r;++j)
     {
         fout << req_type+"\n"<< ccode +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
-                << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n"
-                << prfid+"\n\n";
+                << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
 
     }
 
@@ -198,15 +194,11 @@ void fortosi_new_1_1::finalize() {
 
 
 		out << quint16(0) << req_type << ccode << customer << car1 << car2
-				<< ui.tableWidget->item(i, 0)->text() << ui.labelWeight->text()
-				<< prfid;
-        qDebug() << quint16(0) << req_type << ccode << customer << car1 << car2
-				<< ui.tableWidget->item(i, 0)->text() << ui.labelWeight->text()
-				<< prfid;
+                << ui.tableWidget->item(i, 0)->text() << ui.labelWeight->text();
 
 		out.device()->seek(0);
         out << quint16(block.size() - sizeof(quint16));
-        qDebug() << "BYTES:" << client->bytesToWrite();
+
 		client->write(block);
 
 
@@ -222,10 +214,6 @@ void fortosi_new_1_1::finalize() {
 
 	client->write(block1);
 
-	//}
-	//client->disconnectFromHost();
-	//delete (client);
-	//delete (this);
     disable_controls();
 
 }
@@ -246,8 +234,7 @@ void fortosi_new_1_1::temporary() {
     for (int j=0;j<r;++j)
     {
         fout << req_type+"\n"<< ccode +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
-                << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n"
-                << prfid+"\n\n";
+                << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
 
     }
 
@@ -261,8 +248,7 @@ void fortosi_new_1_1::temporary() {
 		out.setVersion(QDataStream::Qt_4_1);
 		QString req_type = "FT";
 		out << quint16(0) << req_type << ccode << customer << car1 << car2
-				<< ui.tableWidget->item(i, 0)->text() << ui.labelWeight->text()
-				<< prfid;
+                << ui.tableWidget->item(i, 0)->text() << ui.labelWeight->text();
 		out.device()->seek(0);
 		out << quint16(block.size() - sizeof(quint16));
 		client->write(block);
@@ -273,7 +259,7 @@ void fortosi_new_1_1::temporary() {
 	out1 << quint16(0xFFFF);
 	client->write(block1);
 
-	//delete (this);
+
 	disable_controls();
 
 }
@@ -294,7 +280,7 @@ void fortosi_new_1_1::delrow() {
 	ui.labelWeight->setText(sweight.toString());
 
 	ui.tableWidget->removeRow(r1);
-	QVariant pc = ui.tableWidget->rowCount() + 1;
+    QVariant pc = ui.tableWidget->rowCount();
 	ui.labelPieces->setText(pc.toString());
 	r -= 1;
 	ui.pushdelrow->setEnabled(FALSE);
@@ -322,29 +308,10 @@ void fortosi_new_1_1::check() {
 	disable_controls();
 }
 
-void fortosi_new_1_1::compare() {
-	for (int i = 0; i < r; ++i) {
-		QByteArray block;
-		QDataStream out(&block, QIODevice::WriteOnly);
-		out.setVersion(QDataStream::Qt_4_1);
-		QString req_type = "COMP";
-		out << quint16(0) << req_type << ui.tableWidget->item(i, 0)->text()
-				<< prfid;
-		out.device()->seek(0);
-		out << quint16(block.size() - sizeof(quint16));
-		client->write(block);
-	}
-	QByteArray block1;
-	QDataStream out1(&block1, QIODevice::WriteOnly);
-	out1.setVersion(QDataStream::Qt_4_1);
-	out1 << quint16(0xFFFF);
-	client->write(block1);
-
-}
 
 void fortosi_new_1_1::startread() {
 	QDataStream in(client);
-	//qDebug() << "MIKA";
+
 
 	in.setVersion(QDataStream::Qt_4_1);
 	forever {
@@ -353,9 +320,9 @@ void fortosi_new_1_1::startread() {
 
 			if (client->bytesAvailable() < sizeof(quint16))
 				break;
-			//	qDebug()<<"MPIKA1";
+
 			in >> nextblocksize;
-			qDebug() << "nextblocksize" << nextblocksize;
+
 
 		}
 
@@ -391,13 +358,13 @@ void fortosi_new_1_1::startread() {
 			break;
 		QString type, code_t, problem;
 		in >> type;
-		qDebug() << "TYPE:" << type;
+
 
 		in >> code_t >> problem;
 
 		if (type == "CHKC") {
 
-			qDebug() << "CODE:" << code_t;
+
 			readmode = 1;
 			if (code_t == "99999") {
 				enable_controls();
@@ -410,45 +377,29 @@ void fortosi_new_1_1::startread() {
 				m.exec();
 
 			}
-			//qDebug() << "MIKA KAI EDO:" << ui.tableWidget->rowCount();
+
 			for (int i = 0; i < ui.tableWidget->rowCount(); ++i) {
-				//qDebug() << "CODE_T:" << code_t << " TABLE:"
-				//<< ui.tableWidget->item(i, 0)->text();
-				if (ui.tableWidget->item(i, 0)->text() == code_t) {
-					//qDebug() << "PRBLEM:" << problem;
+                if (ui.tableWidget->item(i, 0)->text() == code_t) {
+
 					if (problem == "0")
 						ui.tableWidget->item(i, 0)->setBackgroundColor(Qt::red);
 					if (problem == "1")
 						ui.tableWidget->item(i, 0)->setBackgroundColor(Qt::gray);
-					//break;
+
 				}
 			}
 			nextblocksize = 0;
 
 		}
-		//qDebug() << type;
-		if (type == "COMP") {
-			//qDebug() << "LL:" << code_t << problem;
-			readmode = 2;
-			if (problem == "0") {
-				reply << trUtf8("O Κ/Τ ") + code_t + trUtf8(
-						" δεν υπάρχει στην προφόρτωση");
 
-			}
 
-			if (problem == "1") {
-				reply << trUtf8("O Κ/Τ ") + code_t + trUtf8(" δεν διαβάστηκε");
-
-			}
-
-		}
 
 		if (type == "IFI") {
-            qDebug() << "PIRA IFI";
+
             delete (this);
         }
 
-		//qDebug() << req_type;
+
 		nextblocksize = 0;
 
 	}
@@ -462,7 +413,6 @@ void fortosi_new_1_1::disable_controls() {
 	ui.finalPush->setEnabled(FALSE);
 	ui.lineEdit->setEnabled(FALSE);
 	ui.pushCheck->setEnabled(FALSE);
-	ui.pushProf->setEnabled(FALSE);
 	ui.pushdelrow->setEnabled(FALSE);
 	ui.tableWidget->setEnabled(FALSE);
 	return;
@@ -475,7 +425,6 @@ void fortosi_new_1_1::enable_controls() {
 	ui.finalPush->setEnabled(TRUE);
 	ui.lineEdit->setEnabled(TRUE);
 	ui.pushCheck->setEnabled(TRUE);
-	ui.pushProf->setEnabled(TRUE);
 	ui.tableWidget->setEnabled(TRUE);
 	ui.lineEdit->setFocus();
 	return;

@@ -22,7 +22,7 @@ static const uint qt_meta_data_fortosi_new_1_b[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,13 +32,12 @@ static const uint qt_meta_data_fortosi_new_1_b[] = {
  // slots: signature, parameters, type, tag, flags
       17,   16,   16,   16, 0x08,
       24,   16,   16,   16, 0x08,
-      31,   16,   16,   16, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_fortosi_new_1_b[] = {
-    "fortosi_new_1_b\0\0back()\0loop()\0code()\0"
+    "fortosi_new_1_b\0\0back()\0loop()\0"
 };
 
 void fortosi_new_1_b::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -49,7 +48,6 @@ void fortosi_new_1_b::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->back(); break;
         case 1: _t->loop(); break;
-        case 2: _t->code(); break;
         default: ;
         }
     }
@@ -88,9 +86,9 @@ int fortosi_new_1_b::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 2;
     }
     return _id;
 }

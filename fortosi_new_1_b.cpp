@@ -17,19 +17,16 @@
     */
 #include "fortosi_new_1_b.h"
 
-fortosi_new_1_b::fortosi_new_1_b(QWidget *parent,QString ccode,QString customer, QString car1,QString car2,QString prfid)
+fortosi_new_1_b::fortosi_new_1_b(QWidget *parent,const QString &ccode,const QString &customer, const QString &car1,const QString &car2)
     : QDialog(parent)
 {
-	qDebug()<<"ccode:"<<ccode<<"customer:"<<customer<<"car1:"<<car1<<"car2:"<<car2<<"prfid:"<<prfid;
-	this->parent=parent;
 
+	this->parent=parent;
 	this->ccode=ccode;
 	this->customer=customer;
 	this->car1=car1;
 	this->car2=car2;
-	this->prfid=prfid;
-	qDebug()<< this->prfid;
-	ui.setupUi(this);
+    ui.setupUi(this);
 	QString ipath=(QString)APATH+"/img/app.png";
 	QIcon *icon=new QIcon(ipath);
 
@@ -37,9 +34,9 @@ fortosi_new_1_b::fortosi_new_1_b(QWidget *parent,QString ccode,QString customer,
 	ui.labelCustomer->setText(customer);
 	ui.labelCar1->setText(car1);
 	ui.labelCar2->setText(car2);
-	ui.pushCode->setEnabled(FALSE);
+
 	connect(ui.pushBack, SIGNAL(clicked()), this, SLOT(back()));
-	connect(ui.pushCode, SIGNAL(clicked()), this, SLOT(code()));
+
 	connect(ui.pushLoop, SIGNAL(clicked()), this, SLOT(loop()));
 
     delete icon;
@@ -57,23 +54,12 @@ void fortosi_new_1_b::back()
 }
 
 
-void fortosi_new_1_b::code()
-{
-
-	fortosi_new_1_2 *w = new fortosi_new_1_2(this->parent,ccode,customer,car1,car2,prfid);
-	//qDebug() << customer << car1 << car2;
-	w->move(0,0);
-	w->show();
-	delete(this);
-
-}
 
 void fortosi_new_1_b::loop()
 {
 
-	fortosi_new_1_1 *w = new fortosi_new_1_1(this->parent,ccode,customer,car1,car2,prfid);
-	//qDebug() << customer << car1 << car2;
-	w->move(0,0);
+    fortosi_new_1_1 *w = new fortosi_new_1_1(this->parent,ccode,customer,car1,car2);
+    w->move(0,0);
 	w->show();
 	delete(this);
 

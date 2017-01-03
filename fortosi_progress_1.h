@@ -36,12 +36,13 @@ public:
     fortosi_progress_1(QWidget *parent = 0);
     ~fortosi_progress_1();
     QTcpSocket *client;
+    void requestFortoseis();
 
 private:
     Ui::fortosi_progress_1Class ui;
     quint16 nextblocksize;
     int rowsel;
-    void requestFortoseis();
+
 
 
 private slots:

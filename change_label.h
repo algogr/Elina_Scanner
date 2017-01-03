@@ -40,6 +40,7 @@ private slots:
 	void send_change();
 	void scan_old();
 	void scan_new();
+    void back();
 };
 
 #endif // CHANGE_LABEL_H

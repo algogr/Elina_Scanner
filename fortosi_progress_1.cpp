@@ -18,6 +18,8 @@ fortosi_progress_1::fortosi_progress_1(QWidget *parent)
 	ui.pushContinue->setEnabled(FALSE);
 	ui.pushReview->setEnabled(FALSE);
 	ui.pushDelete->setEnabled(FALSE);
+    ui.pushDelete->setHidden (TRUE);
+
 
 	ui.tableWidget->setColumnCount(6);
 	ui.tableWidget->setHorizontalHeaderLabels(QStringList()<<trUtf8("Κωδικός")<<trUtf8("Πελάτης")<<trUtf8("Πιν.1")<<trUtf8("Πιν.2")<<trUtf8("Κιλά"));
@@ -28,6 +30,8 @@ fortosi_progress_1::fortosi_progress_1(QWidget *parent)
 	ui.tableWidget->setColumnWidth(3,50);
 	ui.tableWidget->setColumnWidth(4,50);
 	ui.tableWidget->setColumnWidth(5,0);
+
+
 	//client = new QTcpSocket;
 	//client->connectToHost(addr, 8888);
 	connect(client, SIGNAL(readyRead()),this, SLOT(startread()));
@@ -49,6 +53,7 @@ fortosi_progress_1::~fortosi_progress_1()
 
 void fortosi_progress_1::startread()
  {
+
 	 QDataStream in(client);
 	 in.setVersion(QDataStream::Qt_4_1);
 	 int r=0;
@@ -104,6 +109,7 @@ void fortosi_progress_1::startread()
 	 		ui.tableWidget->setItem(r,3,c);
 	 		ui.tableWidget->setItem(r,4,d);
 	 		ui.tableWidget->setItem(r,5,e);
+            qDebug()<<"SOOOS";
 
 
 
@@ -139,7 +145,7 @@ void fortosi_progress_1::review()
 void fortosi_progress_1::continious()
 {
 	QString fsid=ui.tableWidget->item(rowsel,5)->text();
-	fortosi_progress_1_2 *w = new fortosi_progress_1_2(this,fsid);
+    fortosi_progress_1_2 *w = new fortosi_progress_1_2(this,fsid);
 	w->move(0,0);
 	w->show();
 
@@ -151,7 +157,7 @@ void fortosi_progress_1::tableclicked(int row,int col)
 {
 	ui.pushContinue->setEnabled(TRUE);
 	ui.pushReview->setEnabled(TRUE);
-	ui.pushDelete->setEnabled(TRUE);
+    //ui.pushDelete->setEnabled(TRUE);
 	rowsel=row;
 }
 
@@ -174,7 +180,7 @@ void fortosi_progress_1::delete_f() {
 	QFont serifFont("Times", 18, QFont::Bold);
 	m.setFont(serifFont);
 
-	m.exec();
+    m.exec();
 	if (m.clickedButton() == acc) {
 
 		int r1 = ui.tableWidget->currentRow();

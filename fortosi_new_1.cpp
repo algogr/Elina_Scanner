@@ -21,12 +21,12 @@
 
 
 fortosi_new_1::fortosi_new_1(QWidget *parent) :
-	QDialog(parent) {
+    QDialog(parent) {
 	this->parent = parent;
-
+    this->setWindowFlags( ( (this->windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint) );
 	ui.setupUi(this);
 
-    //qDebug()<<Elina_Scanner::get_mgr();
+
 	QString ipath1 = (QString) APATH + "/img/truck1.png";
 	QIcon *icon1 = new QIcon(ipath1);
 	this->setWindowIcon(*icon1);
@@ -61,21 +61,20 @@ fortosi_new_1::fortosi_new_1(QWidget *parent) :
 	connect(ui.searchButton, SIGNAL(clicked()), this, SLOT(requestCustomers()));
 	connect(ui.tableWidget, SIGNAL(cellClicked(int ,int )), this,
 			SLOT(tableclicked(int,int)));
-	connect(ui.profButton, SIGNAL(clicked()), this, SLOT(prof()));
+
 	connect(ui.checkGreek, SIGNAL(stateChanged(int)), this,
 			SLOT(change_language(int)));
-	//connect(client, SIGNAL(connected()),this, SLOT(requestCustomers()));
-	//requestCustomers();
 
-	//this->nt=new network_test((QString)SVR_HOST,8889,ui.pushFront);
 	ui.lineEdit_3->setFocus();
-	this->prfid = "0";
+
 
 
 }
 
 fortosi_new_1::~fortosi_new_1() {
-	client->disconnectFromHost();
+
+    client->disconnectFromHost();
+
     delete client;
 }
 
@@ -88,6 +87,19 @@ void fortosi_new_1::requestCustomers() {
 	like = ui.lineEdit_3->text();
 	like = like.toUpper();
 	if (lang == "EL") {
+        like.replace(QString("A"), trUtf8("Α"));
+        like.replace(QString("B"), trUtf8("Β"));
+        like.replace(QString("E"), trUtf8("Ε"));
+        like.replace(QString("Z"), trUtf8("Ζ"));
+        like.replace(QString("H"), trUtf8("Η"));
+        like.replace(QString("I"), trUtf8("Ι"));
+        like.replace(QString("K"), trUtf8("Κ"));
+        like.replace(QString("M"), trUtf8("Μ"));
+        like.replace(QString("N"), trUtf8("Ν"));
+        like.replace(QString("O"), trUtf8("Ο"));
+        like.replace(QString("T"), trUtf8("Τ"));
+        like.replace(QString("Y"), trUtf8("Υ"));
+        like.replace(QString("X"), trUtf8("Χ"));
 		like.replace(QString("C"), trUtf8("Ψ"));
 		like.replace(QString("D"), trUtf8("Δ"));
 		like.replace(QString("F"), trUtf8("Φ"));
@@ -100,7 +112,7 @@ void fortosi_new_1::requestCustomers() {
 		like.replace(QString("U"), trUtf8("Θ"));
 		like.replace(QString("V"), trUtf8("Ω"));
 	}
-	qDebug() << "LIKE:" << lang;
+
 	QByteArray block;
 	QDataStream out(&block, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_1);
@@ -118,59 +130,59 @@ void fortosi_new_1::requestCustomers() {
 
 void fortosi_new_1::startread() {
 
-	QDataStream in(client);
-	qDebug() << "MIKA";
+    QDataStream in(client);
 
-	in.setVersion(QDataStream::Qt_4_1);
 
-	ui.tableWidget->setRowCount(r);
-	forever {
+    in.setVersion(QDataStream::Qt_4_1);
 
-		if (nextblocksize == 0) {
+    ui.tableWidget->setRowCount(r);
+    forever {
 
-			if (client->bytesAvailable() < sizeof(quint16))
-				break;
-			//	qDebug()<<"MPIKA1";
-			in >> nextblocksize;
+        if (nextblocksize == 0) {
 
-		}
+            if (client->bytesAvailable() < sizeof(quint16))
+                break;
 
-		if (nextblocksize == 0xFFFF) {
-			//client->close();
-			break;
-		}
+            in >> nextblocksize;
 
-		if (client->bytesAvailable() < nextblocksize)
-			break;
-		QString type, cname, ccode;
+        }
 
-		in >> ccode >> cname;
-		qDebug() << "CODE:" << ccode << " NAME:" << cname;
-		QTableWidgetItem *a = new QTableWidgetItem;
-		QTableWidgetItem *b = new QTableWidgetItem;
-		a->setText(ccode);
-		b->setText(cname);
-		a->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		b->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		ui.tableWidget->setRowCount(r + 1);
-		ui.tableWidget->setItem(r, 0, a);
-		ui.tableWidget->setItem(r, 1, b);
-		qDebug() << "SEIRES" << ui.tableWidget->rowCount();
+        if (nextblocksize == 0xFFFF) {
+            //client->close();
+            break;
+        }
 
-		++r;
+        if (client->bytesAvailable() < nextblocksize)
+            break;
+        QString type, cname, ccode;
 
-		//qDebug() << req_type;
-		nextblocksize = 0;
+        in >> ccode >> cname;
 
-	}
-	nextblocksize = 0;
+        QTableWidgetItem *a = new QTableWidgetItem;
+        QTableWidgetItem *b = new QTableWidgetItem;
+        a->setText(ccode);
+        b->setText(cname);
+        a->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        b->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        ui.tableWidget->setRowCount(r + 1);
+        ui.tableWidget->setItem(r, 0, a);
+        ui.tableWidget->setItem(r, 1, b);
+
+
+        ++r;
+
+
+        nextblocksize = 0;
+
+    }
+    nextblocksize = 0;
 
 }
 
 void fortosi_new_1::next() {
 	if (ui.lineEdit->text() == "") {
 		QMessageBox m;
-		QSound::play("bell.wav");
+        QSound::play("bell.wav");
 		m.setText(trUtf8("Δεν δόθηκε φορτηγό"));
 		m.setWindowTitle(trUtf8("ΠΡΟΣΟΧΗ!!!"));
 		m.setStandardButtons(QMessageBox::Ok);
@@ -199,9 +211,9 @@ void fortosi_new_1::next() {
 	ccode = ui.label_ccode->text();
 	car1 = ui.lineEdit->text();
 	car2 = ui.lineEdit_2->text();
-	qDebug() << "new:" << client;
+
 	fortosi_new_1_b *w = new fortosi_new_1_b(this->parent, ccode, customer,
-			car1, car2, prfid);
+            car1, car2);
 	w->move(0, 0);
 	w->show();
 	delete (this);
@@ -219,15 +231,9 @@ void fortosi_new_1::tableclicked(int row, int col) {
 	this->rowsel = row;
 	ui.label_Customer->setText(ui.tableWidget->item(rowsel, 1)->text());
 	ui.label_ccode->setText(ui.tableWidget->item(rowsel, 0)->text());
-	//ui.lineEdit_3->setText(ui.tableWidget->item(row,1)->text());
-	//ui.lineEdit_3->setFocus();
+
 }
 
-void fortosi_new_1::prof() {
-	sxpf *w = new sxpf(this, this);
-	w->show();
-	w->move(0, 0);
-}
 
 void fortosi_new_1::onTypeChar() {
 

@@ -22,7 +22,7 @@ static const uint qt_meta_data_change_label[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,13 +33,14 @@ static const uint qt_meta_data_change_label[] = {
       14,   13,   13,   13, 0x08,
       28,   13,   13,   13, 0x08,
       39,   13,   13,   13, 0x08,
+      50,   13,   13,   13, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_change_label[] = {
     "change_label\0\0send_change()\0scan_old()\0"
-    "scan_new()\0"
+    "scan_new()\0back()\0"
 };
 
 void change_label::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -51,6 +52,7 @@ void change_label::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->send_change(); break;
         case 1: _t->scan_old(); break;
         case 2: _t->scan_new(); break;
+        case 3: _t->back(); break;
         default: ;
         }
     }
@@ -89,9 +91,9 @@ int change_label::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

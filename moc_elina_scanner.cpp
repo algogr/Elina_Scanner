@@ -22,7 +22,7 @@ static const uint qt_meta_data_Elina_Scanner[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,28 +33,24 @@ static const uint qt_meta_data_Elina_Scanner[] = {
       15,   14,   14,   14, 0x08,
       25,   14,   14,   14, 0x08,
       38,   14,   14,   14, 0x08,
-      51,   14,   14,   14, 0x08,
-      66,   14,   14,   14, 0x08,
-      83,   14,   14,   14, 0x08,
-      98,   14,   14,   14, 0x08,
+      53,   14,   14,   14, 0x08,
+      70,   14,   14,   14, 0x08,
+      85,   14,   14,   14, 0x08,
+     100,   14,   14,   14, 0x08,
      113,   14,   14,   14, 0x08,
-     129,   14,   14,   14, 0x08,
-     141,   14,   14,   14, 0x08,
-     154,   14,   14,   14, 0x08,
-     175,  169,   14,   14, 0x08,
-     217,   14,   14,   14, 0x08,
-     230,  224,   14,   14, 0x08,
+     134,  128,   14,   14, 0x08,
+     176,   14,   14,   14, 0x08,
+     189,  183,   14,   14, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Elina_Scanner[] = {
-    "Elina_Scanner\0\0fortosi()\0profortosi()\0"
-    "apografi_s()\0katastrofi_s()\0"
-    "change_label_s()\0read_label_s()\0"
-    "rewrap_label()\0transmit_data()\0"
-    "startread()\0returnroll()\0check_online()\0"
-    "state\0check_state(QAbstractSocket::SocketState)\0"
+    "Elina_Scanner\0\0fortosi()\0apografi_s()\0"
+    "katastrofi_s()\0change_label_s()\0"
+    "read_label_s()\0rewrap_label()\0"
+    "returnroll()\0check_online()\0state\0"
+    "check_state(QAbstractSocket::SocketState)\0"
     "send()\0reply\0replyFinished(QNetworkReply*)\0"
 };
 
@@ -65,19 +61,16 @@ void Elina_Scanner::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         Elina_Scanner *_t = static_cast<Elina_Scanner *>(_o);
         switch (_id) {
         case 0: _t->fortosi(); break;
-        case 1: _t->profortosi(); break;
-        case 2: _t->apografi_s(); break;
-        case 3: _t->katastrofi_s(); break;
-        case 4: _t->change_label_s(); break;
-        case 5: _t->read_label_s(); break;
-        case 6: _t->rewrap_label(); break;
-        case 7: _t->transmit_data(); break;
-        case 8: _t->startread(); break;
-        case 9: _t->returnroll(); break;
-        case 10: _t->check_online(); break;
-        case 11: _t->check_state((*reinterpret_cast< QAbstractSocket::SocketState(*)>(_a[1]))); break;
-        case 12: _t->send(); break;
-        case 13: _t->replyFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
+        case 1: _t->apografi_s(); break;
+        case 2: _t->katastrofi_s(); break;
+        case 3: _t->change_label_s(); break;
+        case 4: _t->read_label_s(); break;
+        case 5: _t->rewrap_label(); break;
+        case 6: _t->returnroll(); break;
+        case 7: _t->check_online(); break;
+        case 8: _t->check_state((*reinterpret_cast< QAbstractSocket::SocketState(*)>(_a[1]))); break;
+        case 9: _t->send(); break;
+        case 10: _t->replyFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -115,9 +108,9 @@ int Elina_Scanner::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 11;
     }
     return _id;
 }

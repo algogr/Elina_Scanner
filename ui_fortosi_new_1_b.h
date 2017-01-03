@@ -30,7 +30,6 @@ public:
     QLabel *labelCar2;
     QPushButton *pushLoop;
     QLabel *label_4;
-    QPushButton *pushCode;
     QPushButton *pushBack;
 
     void setupUi(QDialog *fortosi_new_1_bClass)
@@ -61,21 +60,19 @@ public:
         labelCar2->setFont(font);
         pushLoop = new QPushButton(fortosi_new_1_bClass);
         pushLoop->setObjectName(QString::fromUtf8("pushLoop"));
-        pushLoop->setGeometry(QRect(190, 100, 101, 61));
-        label_4 = new QLabel(fortosi_new_1_bClass);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setGeometry(QRect(190, 60, 21, 31));
-        pushCode = new QPushButton(fortosi_new_1_bClass);
-        pushCode->setObjectName(QString::fromUtf8("pushCode"));
-        pushCode->setGeometry(QRect(190, 180, 101, 61));
-        pushBack = new QPushButton(fortosi_new_1_bClass);
-        pushBack->setObjectName(QString::fromUtf8("pushBack"));
-        pushBack->setGeometry(QRect(30, 140, 91, 61));
+        pushLoop->setGeometry(QRect(180, 140, 101, 61));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Times New Roman"));
         font1.setPointSize(36);
         font1.setBold(true);
         font1.setWeight(75);
+        pushLoop->setFont(font1);
+        label_4 = new QLabel(fortosi_new_1_bClass);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(190, 60, 21, 31));
+        pushBack = new QPushButton(fortosi_new_1_bClass);
+        pushBack->setObjectName(QString::fromUtf8("pushBack"));
+        pushBack->setGeometry(QRect(30, 140, 91, 61));
         pushBack->setFont(font1);
 
         retranslateUi(fortosi_new_1_bClass);
@@ -91,11 +88,9 @@ public:
         label_3->setText(QApplication::translate("fortosi_new_1_bClass", "\316\246\316\277\317\201\317\204\316\267\316\263\317\214", 0, QApplication::UnicodeUTF8));
         labelCar1->setText(QString());
         labelCar2->setText(QString());
-        pushLoop->setText(QApplication::translate("fortosi_new_1_bClass", "1.\316\232\316\261\317\204\316\254 \317\203\317\205\317\201\317\201\316\277\316\256", 0, QApplication::UnicodeUTF8));
+        pushLoop->setText(QApplication::translate("fortosi_new_1_bClass", ">>", 0, QApplication::UnicodeUTF8));
         pushLoop->setShortcut(QApplication::translate("fortosi_new_1_bClass", "1", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("fortosi_new_1_bClass", "/", 0, QApplication::UnicodeUTF8));
-        pushCode->setText(QApplication::translate("fortosi_new_1_bClass", "2.\316\232\316\261\317\204\316\254 \316\272\317\211\316\264\316\271\316\272\317\214", 0, QApplication::UnicodeUTF8));
-        pushCode->setShortcut(QApplication::translate("fortosi_new_1_bClass", "2", 0, QApplication::UnicodeUTF8));
         pushBack->setText(QApplication::translate("fortosi_new_1_bClass", "<<", 0, QApplication::UnicodeUTF8));
         pushBack->setShortcut(QApplication::translate("fortosi_new_1_bClass", "Esc", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
