@@ -244,17 +244,17 @@ void fortosi_new_1::onTypeChar() {
 	QString like = ui.lineEdit_3->text();
 	like = like.toUpper();
 	if (lang == "EL") {
-		like.replace(QString("C"), trUtf8("Ψ"));
-		like.replace(QString("D"), trUtf8("Δ"));
-		like.replace(QString("F"), trUtf8("Φ"));
-		like.replace(QString("G"), trUtf8("Γ"));
-		like.replace(QString("J"), trUtf8("Ξ"));
-		like.replace(QString("L"), trUtf8("Λ"));
-		like.replace(QString("P"), trUtf8("Π"));
-		like.replace(QString("R"), trUtf8("Ρ"));
-		like.replace(QString("S"), trUtf8("Σ"));
-		like.replace(QString("U"), trUtf8("Θ"));
-		like.replace(QString("V"), trUtf8("Ω"));
+        like.replace(QString("C"), trUtf8("Ψ"));
+        like.replace(QString("D"), trUtf8("Δ"));
+        like.replace(QString("F"), trUtf8("Φ"));
+        like.replace(QString("G"), trUtf8("Γ"));
+        like.replace(QString("J"), trUtf8("Ξ"));
+        like.replace(QString("L"), trUtf8("Λ"));
+        like.replace(QString("P"), trUtf8("Π"));
+        like.replace(QString("R"), trUtf8("Ρ"));
+        like.replace(QString("S"), trUtf8("Σ"));
+        like.replace(QString("U"), trUtf8("Θ"));
+        like.replace(QString("V"), trUtf8("Ω"));
 	}
 	ui.lineEdit_3->setText(like);
 }

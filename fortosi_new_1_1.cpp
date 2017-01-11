@@ -178,7 +178,7 @@ void fortosi_new_1_1::finalize() {
     QString req_type = "FP";
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< ccode +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
+        fout << req_type+"\n"<< ccode.toAscii() +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
                 << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
 
     }
@@ -233,7 +233,7 @@ void fortosi_new_1_1::temporary() {
 
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< ccode +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
+        fout << req_type+"\n"<< ccode.toAscii() +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
                 << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
 
     }

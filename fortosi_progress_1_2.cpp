@@ -329,7 +329,7 @@ void fortosi_progress_1_2::finalize() {
     QString req_type = "SF";
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< customer+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
+        fout << req_type+"\n"<< customer.toAscii()+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
              << ui.labelWeight->text()+"\n"<< fortosi_id+"\n\n";
 
 
@@ -376,7 +376,7 @@ void fortosi_progress_1_2::temporary() {
     QString req_type = "ST";
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< customer+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
+        fout << req_type+"\n"<< customer.toAscii()+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
              << ui.labelWeight->text()+"\n"<< fortosi_id+"\n\n";
 
     }

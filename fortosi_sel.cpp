@@ -29,6 +29,8 @@ fortosi_sel::fortosi_sel(QWidget *parent)
 
 
     client = new QTcpSocket;
+    QHostAddress addr((QString)SVR_HOST);
+    client->connectToHost(addr, 8889);
 
     connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(new_fortosi()));
     connect(ui.pushButton_2,SIGNAL(clicked()),this,SLOT(progress_fortosi()));
@@ -129,18 +131,18 @@ void fortosi_sel::send_fortosi(int n)
             car2=in.readLine().trimmed();
             code_t=in.readLine().trimmed();
             weight=in.readLine().trimmed();
-            prfid=in.readLine().trimmed();
+            //prfid=in.readLine().trimmed();
             qDebug()<<"PRFID:"<<prfid;
             QByteArray block;
             QDataStream out(&block, QIODevice::WriteOnly);
             out.setVersion(QDataStream::Qt_4_1);
 
             out << quint16(0) << req_type << ccode << customer << car1 << car2
-                << code_t<< weight<< prfid;
+                << code_t<< weight;
 
             out.device()->seek(0);
             out << quint16(block.size() - sizeof(quint16));
-            qDebug()<<"BLOCKSIZE"<<block.size();
+            qDebug()<<"BLOCKSIZE1"<<block.size();
             client->write(block);
             line=in.readLine();
             line=in.readLine();
