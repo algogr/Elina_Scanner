@@ -27,8 +27,8 @@ fortosi_progress_1_2::fortosi_progress_1_2(QWidget *parent, QString fid) :
 	ui.setupUi(this);
 	QHostAddress addr((QString) SVR_HOST);
 	disable_controls();
-	client = new QTcpSocket;
-	client->connectToHost(addr, 8889);
+    client = new AlgoTcpSocket(addr, 8889);
+    client->connectToHost();
 	QString ipath = (QString) APATH + "/img/app.png";
 	QIcon *icon = new QIcon(ipath);
 	in.setDevice(client);
@@ -225,6 +225,7 @@ void fortosi_progress_1_2::back() {
 }
 
 void fortosi_progress_1_2::scan() {
+    ui.pushDelete->setEnabled(FALSE);
 	QString scanned = ui.lineScan->text();
 	QRegExp kt("\\d{12,12}[X-Z]\\d{2,2}");
 	for (int i = 0; i < ui.tableWidget->rowCount(); ++i) {
@@ -313,6 +314,9 @@ void fortosi_progress_1_2::scan() {
 }
 
 void fortosi_progress_1_2::finalize() {
+    if(client->networkstatus)
+    {
+
 	QHostAddress addr((QString) SVR_HOST);
     QFile file3("fortosi_3.txt");
     QFile file2("fortosi_2.txt");
@@ -327,9 +331,12 @@ void fortosi_progress_1_2::finalize() {
     QTextStream fout(&file);
     fout<<"2\n";
     QString req_type = "SF";
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1253");
+    QByteArray fcustomer;
+    fcustomer = codec->fromUnicode(grtoen(customer.toUtf8()));
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< customer.toAscii()+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
+        fout << req_type+"\n"<< fcustomer+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
              << ui.labelWeight->text()+"\n"<< fortosi_id+"\n\n";
 
 
@@ -357,11 +364,18 @@ void fortosi_progress_1_2::finalize() {
 	client->write(block);
 	//delete (this);
 	disable_controls();
+    }
+    else
+    {
+        networkFailure();
+    }
 
 
 }
 
 void fortosi_progress_1_2::temporary() {
+    if(client->networkstatus)
+    {
 	QHostAddress addr((QString) SVR_HOST);
     QFile file ("fortosi.txt");
     QFile file3("fortosi_3.txt");
@@ -374,9 +388,13 @@ void fortosi_progress_1_2::temporary() {
     QTextStream fout(&file);
     fout<<"2\n";
     QString req_type = "ST";
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1253");
+    QByteArray fcustomer;
+    fcustomer = codec->fromUnicode(grtoen(customer.toUtf8()));
+
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< customer.toAscii()+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
+        fout << req_type+"\n"<< fcustomer+"\n"<< ui.tableWidget->item(j, 0)->text()+"\n"
              << ui.labelWeight->text()+"\n"<< fortosi_id+"\n\n";
 
     }
@@ -404,11 +422,17 @@ void fortosi_progress_1_2::temporary() {
 	//
 	//delete (this);
 	disable_controls();
+    }
+    else{
+        networkFailure();
+
+    }
 
 }
 
 void fortosi_progress_1_2::cellclicked() {
 	ui.pushDelete->setEnabled(TRUE);
+    ui.lineScan->setFocus();
 }
 
 void fortosi_progress_1_2::delrow() {
@@ -465,5 +489,46 @@ void fortosi_progress_1_2::enable_controls(){
     ui.tableWidget->setEnabled(TRUE);
 	ui.tempPush->setEnabled(TRUE);
 	ui.lineScan->setFocus();
+
+}
+
+void fortosi_progress_1_2::networkFailure()
+{
+    QMessageBox m;
+    m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
+    QSound::play("bell.wav");
+    m.setStandardButtons(QMessageBox::Ok);
+    m.setInformativeText(trUtf8("Η αποστολή δεν έγινε!"));
+    m.move(30,120);
+    m.exec();
+}
+
+QString fortosi_progress_1_2::grtoen(QString str)
+{
+    str.replace(QString("Α"),trUtf8("A"));
+    str.replace(QString("Β"),trUtf8("B"));
+    str.replace(QString("Ε"),trUtf8("E"));
+    str.replace(QString("Ζ"),trUtf8("Z"));
+    str.replace(QString("Η"),trUtf8("H"));
+    str.replace(QString("Ι"),trUtf8("I"));
+    str.replace(QString("Κ"),trUtf8("K"));
+    str.replace(QString("Μ"),trUtf8("M"));
+    str.replace(QString("Ν"),trUtf8("N"));
+    str.replace(QString("Ο"),trUtf8("O"));
+    str.replace(QString("Τ"),trUtf8("T"));
+    str.replace(QString("Υ"),trUtf8("Y"));
+    str.replace(QString("Χ"),trUtf8("X"));
+    str.replace(QString("Ψ"),trUtf8("C"));
+    str.replace(QString("Δ"),trUtf8("D"));
+    str.replace(QString("Φ"),trUtf8("F"));
+    str.replace(QString("Γ"),trUtf8("G"));
+    str.replace(QString("Ξ"),trUtf8("J"));
+    str.replace(QString("Λ"),trUtf8("L"));
+    str.replace(QString("Π"),trUtf8("P"));
+    str.replace(QString("Ρ"),trUtf8("R"));
+    str.replace(QString("Σ"),trUtf8("S"));
+    str.replace(QString("Θ"),trUtf8("U"));
+    str.replace(QString("Ω"),trUtf8("V"));
+    return str;
 
 }

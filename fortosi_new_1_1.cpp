@@ -21,12 +21,12 @@
 #include <QHostAddress>
 using namespace std;
 
-fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, const QString &ccode,const QString &customer, const QString &car1, const QString &car2) :
+fortosi_new_1_1::fortosi_new_1_1(QWidget *parent, const QString &ccode,const QString& customer, const QString &car1, const QString &car2) :
 	QDialog(parent) {
 	//client = pclient;
     QHostAddress addr((QString) SVR_HOST);
-    client = new QTcpSocket;
-    client->connectToHost(addr, 8889);
+    client = new AlgoTcpSocket(addr,8889);
+    client->connectToHost();
 	nextblocksize = 0;
 
 	this->ccode = ccode;
@@ -72,6 +72,7 @@ fortosi_new_1_1::~fortosi_new_1_1() {
 }
 
 void fortosi_new_1_1::scan() {
+    ui.pushdelrow->setEnabled(FALSE);
 	QString scanned = ui.lineEdit->text();
 	for (int i = 0; i < ui.tableWidget->rowCount(); ++i) {
 		if (ui.tableWidget->item(i, 0)->text() == scanned) {
@@ -164,6 +165,8 @@ void fortosi_new_1_1::back() {
 }
 
 void fortosi_new_1_1::finalize() {
+    if (client->networkstatus)
+    {
 
     QFile file ("fortosi.txt");
     QFile file3("fortosi_3.txt");
@@ -176,10 +179,17 @@ void fortosi_new_1_1::finalize() {
     QTextStream fout(&file);
     fout<<"1\n";
     QString req_type = "FP";
+    ;
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1253");
+    QByteArray fcustomer;
+    fcustomer = codec->fromUnicode(grtoen(customer.toUtf8()));
+
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< ccode.toAscii() +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
+        qDebug()<<fcustomer;
+        fout << req_type+"\n"<< ccode +"\n"+fcustomer +"\n"<< car1+"\n" << car2+"\n"
                 << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
+        qDebug()<<"TEST";
 
     }
 
@@ -215,10 +225,15 @@ void fortosi_new_1_1::finalize() {
 	client->write(block1);
 
     disable_controls();
+    }
+    else
+        networkFailure();
 
 }
 
 void fortosi_new_1_1::temporary() {
+    if(client->networkstatus)
+    {
     QFile file ("fortosi.txt");
     QFile file3("fortosi_3.txt");
     QFile file2("fortosi_2.txt");
@@ -230,11 +245,23 @@ void fortosi_new_1_1::temporary() {
     QTextStream fout(&file);
     fout<<"1\n";
     QString req_type = "FT";
+    qDebug()<<customer.toAscii()<<":ASCII";
+    qDebug()<<customer.toLatin1()<<":Latin1";
+    qDebug()<<customer.toLocal8Bit()<<":LOCAL";
+    qDebug()<<customer.toLower()<<":LOWER";
+    qDebug()<<customer.toUpper()<<":UPPER";
+
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1253");
+    QByteArray fcustomer;
+    fcustomer = codec->fromUnicode(grtoen(customer.toUtf8()));
+                //(QByteArray)(customer.toStdString()).data();
+
+    //QString fcustomer=grtoen(customer.toUtf8());
 
     for (int j=0;j<r;++j)
     {
-        fout << req_type+"\n"<< ccode.toAscii() +"\n"<< customer +"\n"<< car1+"\n" << car2+"\n"
-                << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
+        fout << req_type+"\n"<< ccode +"\n"<< fcustomer +"\n"<< car1+"\n" << car2+"\n"
+                  << ui.tableWidget->item(j, 0)->text() +"\n"<< ui.labelWeight->text()+"\n\n";
 
     }
 
@@ -261,11 +288,15 @@ void fortosi_new_1_1::temporary() {
 
 
 	disable_controls();
+    }
+    else
+        networkFailure();
 
 }
 
 void fortosi_new_1_1::cellclicked(const QModelIndex &) {
 	ui.pushdelrow->setEnabled(TRUE);
+    ui.lineEdit->setFocus();
 }
 
 void fortosi_new_1_1::lineeditclicked()
@@ -340,7 +371,7 @@ void fortosi_new_1_1::startread() {
 					m.setText(trUtf8("Η προφόρτωση ταυτίζεται με την φόρτωση"));
 					QSound::play("bell.wav");
 
-				}
+            }
 				m.setStandardButtons(QMessageBox::Ok);
 				m.move(0, 0);
 				//QFont serifFont("Times", 18, QFont::Bold);
@@ -369,7 +400,7 @@ void fortosi_new_1_1::startread() {
 			if (code_t == "99999") {
 				enable_controls();
 				QMessageBox m;
-				QString mtext;
+
 				m.setText(trUtf8("Ο έλεγχος ολοκληρωθηκε!"));
 				m.setStandardButtons(QMessageBox::Ok);
 				QSound::play("bell.wav");
@@ -429,4 +460,49 @@ void fortosi_new_1_1::enable_controls() {
 	ui.lineEdit->setFocus();
 	return;
 
+}
+
+void fortosi_new_1_1::networkFailure()
+{
+    QMessageBox m;
+    m.setText(trUtf8("Πρόβλημα επικοινωνίας με τον server!"));
+    QSound::play("bell.wav");
+    m.setStandardButtons(QMessageBox::Ok);
+    m.setInformativeText(trUtf8("Η αποστολή δεν έγινε!"));
+    m.move(30,120);
+    m.exec();
+}
+
+QString fortosi_new_1_1::grtoen(QString str)
+{
+    if (str=="ΔΗΜΗ")
+        qDebug()<<"IDIO";
+
+    str.replace(QString("Α"),trUtf8("A"));
+    str.replace(QString("Β"),trUtf8("B"));
+    str.replace(QString("Ε"),trUtf8("E"));
+    str.replace(QString("Ζ"),trUtf8("Z"));
+    str.replace(QString("Η"),trUtf8("H"));
+    str.replace(QString("Ι"),trUtf8("I"));
+    str.replace(QString("Κ"),trUtf8("K"));
+    str.replace(QString("Μ"),trUtf8("M"));
+    str.replace(QString("Ν"),trUtf8("N"));
+    str.replace(QString("Ο"),trUtf8("O"));
+    str.replace(QString("Τ"),trUtf8("T"));
+    str.replace(QString("Υ"),trUtf8("Y"));
+    str.replace(QString("Χ"),trUtf8("X"));
+    str.replace(QString("Ψ"),trUtf8("C"));
+    str.replace(QString("Δ"),"D");
+    str.replace(QString("Φ"),trUtf8("F"));
+    str.replace(QString("Γ"),trUtf8("G"));
+    str.replace(QString("Ξ"),trUtf8("J"));
+    str.replace(QString("Λ"),trUtf8("L"));
+    str.replace(QString("Π"),trUtf8("P"));
+    str.replace(QString("Ρ"),trUtf8("R"));
+    str.replace(QString("Σ"),trUtf8("S"));
+    str.replace(QString("Θ"),trUtf8("U"));
+    str.replace(QString("Ω"),trUtf8("V"));
+    qDebug()<<"1:"<<str;
+    qDebug()<<"2:"<<customer;
+    return str;
 }

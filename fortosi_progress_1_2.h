@@ -25,6 +25,7 @@
 #include <QSound>
 #include <QTcpSocket>
 #include "constants.h"
+#include "algotcpsocket.h"
 
 
 class fortosi_progress_1_2 : public QDialog
@@ -44,12 +45,14 @@ private:
     int weight;
     int r;
     void requestFortosi();
-    QTcpSocket *client;
+    AlgoTcpSocket *client;
     QStringList reply;
 	int readmode;
 	void disable_controls();
 	void enable_controls();
 	QDataStream in;
+    void networkFailure();
+    QString grtoen(QString str);
 
 
 private slots:

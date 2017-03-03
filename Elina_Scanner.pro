@@ -21,7 +21,8 @@ HEADERS += read_label.h \
     rewrap_sc.h \
     return_roll.h \
     apografi_comment.h \
-    fortosi_sel_1.h
+    fortosi_sel_1.h \
+    algotcpsocket.h
 SOURCES += read_label.cpp \
     change_label.cpp \
     network_test.cpp \
@@ -39,7 +40,8 @@ SOURCES += read_label.cpp \
     rewrap_sc.cpp \
     return_roll.cpp \
     apografi_comment.cpp \
-    fortosi_sel_1.cpp
+    fortosi_sel_1.cpp \
+    algotcpsocket.cpp
 FORMS += read_label.ui \
     change_label.ui \
     apografi.ui \

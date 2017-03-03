@@ -24,7 +24,7 @@
 #include <QMessageBox>
 #include <QSound>
 
-#include <QTcpSocket>
+#include "algotcpsocket.h"
 #include "constants.h"
 
 
@@ -34,13 +34,13 @@ class fortosi_new_1_1 : public QDialog
     Q_OBJECT
 
 public:
-    fortosi_new_1_1(QWidget *parent = 0,const QString &ccode="",const QString &customer="",const QString &car1="",const QString &car2="");
+    fortosi_new_1_1(QWidget *parent = 0,const QString &ccode="",const QString& customer="",const QString &car1="",const QString &car2="");
     ~fortosi_new_1_1();
     QString ccode;
     QString customer;
     QString car1;
     QString car2;
-    QTcpSocket *client;
+    AlgoTcpSocket *client;
     quint16 nextblocksize;
 
 private:
@@ -51,6 +51,8 @@ private:
     int readmode;
     void disable_controls();
     void enable_controls();
+    void networkFailure();
+    QString grtoen(QString str);
 
 private slots:
 	void scan();
